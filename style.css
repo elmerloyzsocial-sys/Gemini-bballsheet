@@ -116,14 +116,7 @@ input[type="number"] {
 
 .team-card {
   background: var(--card-bg);
-  padding: 0.8rem;
-  border-radius: var(--border-radius);
-  flex: 1 1 340px;
-  min-width: 340px;
-  max-width: 340px;
-  margin-bottom: var(--spacing);
-  box-sizing: border-box;
-  transition: background 0.2s;
+
 }
 
 body.dark .team-card {
