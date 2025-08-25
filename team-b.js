@@ -1,7 +1,5 @@
-// Static display only for Team B
-
 // ============ TEAM INFO & META ============
-const teamBInfo = {
+let teamBInfo = {
   name: "Team B",
   coach: "Coach B",
   logo: "team-b-logo.png",
@@ -13,9 +11,61 @@ const teamBInfo = {
 
 // ============ ROSTER ============
 const teamBPlayers = [
-  { name: "Player 1", points: 10, rebounds: 5, assists: 3, fouls: 2, steals: 1, blocks: 1, portrait: "", timePlayed: 25 },
-  { name: "Player 2", points: 7, rebounds: 3, assists: 5, fouls: 1, steals: 2, blocks: 0, portrait: "", timePlayed: 20 },
-  { name: "Player 3", points: 15, rebounds: 7, assists: 2, fouls: 3, steals: 0, blocks: 2, portrait: "", timePlayed: 30 },
+  {
+    name: "Kevin Tran",
+    points: 21,
+    rebounds: 7,
+    assists: 6,
+    fouls: 3,
+    steals: 2,
+    blocks: 1,
+    portrait: "",
+    timePlayed: 31
+  },
+  {
+    name: "Isaac Kim",
+    points: 13,
+    rebounds: 5,
+    assists: 4,
+    fouls: 2,
+    steals: 0,
+    blocks: 2,
+    portrait: "",
+    timePlayed: 28
+  },
+  {
+    name: "Noah Davis",
+    points: 18,
+    rebounds: 6,
+    assists: 3,
+    fouls: 2,
+    steals: 1,
+    blocks: 0,
+    portrait: "",
+    timePlayed: 25
+  },
+  {
+    name: "Ryan Young",
+    points: 10,
+    rebounds: 4,
+    assists: 2,
+    fouls: 1,
+    steals: 1,
+    blocks: 1,
+    portrait: "",
+    timePlayed: 17
+  },
+  {
+    name: "Alex Wu",
+    points: 7,
+    rebounds: 3,
+    assists: 5,
+    fouls: 0,
+    steals: 2,
+    blocks: 0,
+    portrait: "",
+    timePlayed: 14
+  }
 ];
 
 // ============ PERIODS ============
@@ -29,22 +79,22 @@ const periodStats = [
 
 // ============ GAME LOG ============
 const gameLog = [
-  { time: "00:05", event: "Player 1 scored 2 points" },
-  { time: "00:10", event: "Player 2 got a rebound" },
-  { time: "00:15", event: "Player 3 assisted Player 1" },
-  { time: "00:18", event: "Player 2 stole the ball" },
-  { time: "00:20", event: "Player 3 blocked a shot" }
+  { time: "00:05", event: "Kevin Tran scored 2 points" },
+  { time: "00:10", event: "Isaac Kim got a rebound" },
+  { time: "00:15", event: "Noah Davis assisted Kevin Tran" },
+  { time: "00:18", event: "Ryan Young stole the ball" },
+  { time: "00:20", event: "Alex Wu blocked a shot" }
 ];
 
 // ============ RENDER FUNCTIONS ============
 
 function renderTeamInfo() {
-  document.getElementById("teamBName").textContent = teamBInfo.name;
-  document.getElementById("coachBName").textContent = teamBInfo.coach;
-  document.getElementById("leagueName").textContent = teamBInfo.league;
-  document.getElementById("venueName").textContent = teamBInfo.venue;
-  document.getElementById("gameDate").textContent = teamBInfo.date;
-  document.getElementById("referees").textContent = teamBInfo.referees;
+  document.getElementById("teamBName").value = teamBInfo.name;
+  document.getElementById("coachBName").value = teamBInfo.coach;
+  document.getElementById("leagueNameB").value = teamBInfo.league;
+  document.getElementById("venueNameB").value = teamBInfo.venue;
+  document.getElementById("gameDateB").value = teamBInfo.date;
+  document.getElementById("refereesB").value = teamBInfo.referees;
   document.getElementById("teamBLogoPreview").src = teamBInfo.logo;
 }
 
@@ -157,12 +207,32 @@ function formatTimer(seconds) {
   return `${min}:${sec.toString().padStart(2, '0')}`;
 }
 
-// ============ ONLOAD ============
-window.onload = function() {
+// ============ EVENT HANDLERS FOR EDITABLE FIELDS ============
+
+document.addEventListener('DOMContentLoaded', () => {
   renderTeamInfo();
   renderPlayerTable();
   renderTeamSummary();
   renderPeriodStats();
   renderGameLog();
   renderTimer();
-};
+
+  document.getElementById("teamBName").onchange = e => { teamBInfo.name = e.target.value; };
+  document.getElementById("coachBName").onchange = e => { teamBInfo.coach = e.target.value; };
+  document.getElementById("leagueNameB").onchange = e => { teamBInfo.league = e.target.value; };
+  document.getElementById("venueNameB").onchange = e => { teamBInfo.venue = e.target.value; };
+  document.getElementById("gameDateB").onchange = e => { teamBInfo.date = e.target.value; };
+  document.getElementById("refereesB").onchange = e => { teamBInfo.referees = e.target.value; };
+  document.getElementById("teamBLogo").onchange = function() {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        teamBInfo.logo = e.target.result;
+        document.getElementById("teamBLogoPreview").src = e.target.result;
+        document.getElementById("teamBLogoPreview").style.display = "inline";
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+});
