@@ -570,6 +570,7 @@ window.onload = function() {
   renderSubs('B');
   initTimer();
   renderGameLog();
+  updateTotalPointsDisplay();
 };
 window.exportCSV = exportCSV;
 window.exportLogCSV = exportLogCSV;
