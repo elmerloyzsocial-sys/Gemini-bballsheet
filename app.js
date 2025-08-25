@@ -129,10 +129,6 @@ function renderPlayerTable(team) {
     <th>Fouls</th>
     <th>Stl</th>
     <th>Blk</th>
-    <th>TO</th>
-    <th>FG</th>
-    <th>FT</th>
-    <th>3PT</th>
     <th>Time Played</th>
     <th>Remove</th>
   </tr>`;
@@ -156,19 +152,6 @@ function renderPlayerTable(team) {
       <td><input type="number" value="${p.fouls}" onchange="updatePlayer('${team}',${i},'fouls',this.value)" style="width:40px"/></td>
       <td><input type="number" value="${p.steals}" onchange="updatePlayer('${team}',${i},'steals',this.value)" style="width:40px"/></td>
       <td><input type="number" value="${p.blocks}" onchange="updatePlayer('${team}',${i},'blocks',this.value)" style="width:40px"/></td>
-      <td><input type="number" value="${p.turnovers}" onchange="updatePlayer('${team}',${i},'turnovers',this.value)" style="width:40px"/></td>
-      <td>
-        <input type="number" value="${p.fgMade}" onchange="updatePlayer('${team}',${i},'fgMade',this.value)" style="width:28px"/> /
-        <input type="number" value="${p.fgAtt}" onchange="updatePlayer('${team}',${i},'fgAtt',this.value)" style="width:28px"/>
-      </td>
-      <td>
-        <input type="number" value="${p.ftMade}" onchange="updatePlayer('${team}',${i},'ftMade',this.value)" style="width:28px"/> /
-        <input type="number" value="${p.ftAtt}" onchange="updatePlayer('${team}',${i},'ftAtt',this.value)" style="width:28px"/>
-      </td>
-      <td>
-        <input type="number" value="${p.threeMade}" onchange="updatePlayer('${team}',${i},'threeMade',this.value)" style="width:28px"/> /
-        <input type="number" value="${p.threeAtt}" onchange="updatePlayer('${team}',${i},'threeAtt',this.value)" style="width:28px"/>
-      </td>
       <td>${formatTimer(Math.round(p.timePlayed))}</td>
       <td><button onclick="removePlayer('${team}',${i})">-</button></td>
     </tr>`;
