@@ -136,8 +136,8 @@ function renderPlayerTable(team) {
     html += `<tr>
       <td><input value="${p.number}" onchange="updatePlayer('${team}',${i},'number',this.value)" style="width:40px"/></td>
       <td>
-        ${p.portrait ? `<img src="${p.portrait}" style="width:32px;height:32px;border-radius:50%"/>` : ''}
-        <input type="file" accept="image/*" style="width:34px" onchange="uploadPortrait('${team}',${i},this)">
+        <img src="${p.portrait || 'default-avatar.png'}" style="width:32px;height:32px;border-radius:50%;object-fit:cover;cursor:pointer;" onclick="document.querySelector('input[data-player=\\'${team}-${i}\\']').click()"/>
+        <input type="file" accept="image/*" style="display:none;" data-player="${team}-${i}" onchange="uploadPortrait('${team}',${i},this)">
       </td>
       <td><input value="${p.name}" onchange="updatePlayer('${team}',${i},'name',this.value)"/></td>
       <td><input type="checkbox" ${p.onCourt ? 'checked' : ''} onchange="toggleOnCourt('${team}',${i},this.checked)"/></td>
@@ -270,12 +270,7 @@ function renderTeamSummary(team) {
     total.ftAtt += p.ftAtt;
     total.threeMade += p.threeMade;
     total.threeAtt += p.threeAtt;
-  })
-function updateTotalPointsDisplay() {
-  const totalA = playersA.reduce((sum, p) => sum + (p.points || 0), 0);
-  const totalB = playersB.reduce((sum, p) => sum + (p.points || 0), 0);
-  document.getElementById('totalPointsDisplay').textContent = `Total Points: A ${totalA} - B ${totalB}`;
-  };
+  });
   // Percentages
   let fgPct = total.fgAtt ? ((total.fgMade / total.fgAtt) * 100).toFixed(1) : '-';
   let ftPct = total.ftAtt ? ((total.ftMade / total.ftAtt) * 100).toFixed(1) : '-';
@@ -295,6 +290,12 @@ function updateTotalPointsDisplay() {
     FG: ${total.fgMade}/${total.fgAtt} (${fgPct}%) | FT: ${total.ftMade}/${total.ftAtt} (${ftPct}%) | 3PT: ${total.threeMade}/${total.threeAtt} (${threePct}%)<br>
     <b>Running Score:</b> ${runningScore} | <span>${leadText}</span>
   `;
+}
+
+function updateTotalPointsDisplay() {
+  const totalA = playersA.reduce((sum, p) => sum + (p.points || 0), 0);
+  const totalB = playersB.reduce((sum, p) => sum + (p.points || 0), 0);
+  document.getElementById('totalPointsDisplay').textContent = `Total Points: A ${totalA} - B ${totalB}`;
 }
 
 // ========== SUBSTITUTION TRACKER ==========
@@ -399,6 +400,24 @@ function addToDrive() {
 }
 
 // ========== LOGO UPLOAD ==========
+function updateTeamHeaders() {
+  const teamAName = document.getElementById('teamAName').value || 'Team A';
+  const teamBName = document.getElementById('teamBName').value || 'Team B';
+  
+  const teamAHeader = document.querySelector('#teamA h2');
+  const teamBHeader = document.querySelector('#teamB h2');
+  
+  // Update Team A header with logo
+  teamAHeader.innerHTML = teamALogo ? 
+    `<img src="${teamALogo}" class="team-logo-header" alt="${teamAName} Logo"/> ${teamAName} Players` :
+    `${teamAName} Players`;
+    
+  // Update Team B header with logo  
+  teamBHeader.innerHTML = teamBLogo ? 
+    `<img src="${teamBLogo}" class="team-logo-header" alt="${teamBName} Logo"/> ${teamBName} Players` :
+    `${teamBName} Players`;
+}
+
 function logoUpload(team, input) {
   const file = input.files[0];
   if (file) {
@@ -413,6 +432,7 @@ function logoUpload(team, input) {
         document.getElementById('teamBLogoPreview').src = teamBLogo;
         document.getElementById('teamBLogoPreview').style.display = 'inline';
       }
+      updateTeamHeaders();
       saveToStorage();
     };
     reader.readAsDataURL(file);
@@ -528,14 +548,21 @@ window.updatePeriodName = updatePeriodName;
 window.toggleOnCourt = toggleOnCourt;
 window.uploadPortrait = uploadPortrait;
 window.logoUpload = logoUpload;
+window.updateTeamHeaders = updateTeamHeaders;
 
 window.onload = function() {
   loadFromStorage();
 
   // Team/coach names, league, venue, date, referees persistence
-  document.getElementById('teamAName').addEventListener('change', saveToStorage);
+  document.getElementById('teamAName').addEventListener('change', function() {
+    updateTeamHeaders();
+    saveToStorage();
+  });
   document.getElementById('coachAName').addEventListener('change', saveToStorage);
-  document.getElementById('teamBName').addEventListener('change', saveToStorage);
+  document.getElementById('teamBName').addEventListener('change', function() {
+    updateTeamHeaders();
+    saveToStorage();
+  });
   document.getElementById('coachBName').addEventListener('change', saveToStorage);
   document.getElementById('leagueName').addEventListener('change', saveToStorage);
   document.getElementById('venueName').addEventListener('change', saveToStorage);
@@ -563,6 +590,7 @@ window.onload = function() {
 
   setPeriodStats();
   restoreNames();
+  updateTeamHeaders();
   renderPlayerTable('A');
   renderPlayerTable('B');
   renderPeriodTables();
