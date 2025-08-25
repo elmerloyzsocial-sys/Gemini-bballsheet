@@ -167,6 +167,7 @@ function updatePlayer(team, idx, field, value) {
   list[idx][field] = value;
   saveToStorage();
   renderTeamSummary(team);
+  updateTotalPointsDisplay();
 }
 
 function addPoints(team, idx, amount) {
