@@ -5,29 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Basketball Scoresheet</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0074d9"/>
 </head>
 <body>
   <div class="container">
+    <button id="themeToggle" title="Toggle dark/light mode">🌙</button>
     <h1>🏀 Basketball Scoresheet</h1>
 
     <section class="game-info">
       <div class="game-info-row">
         <label>Team A Name: <input id="teamAName" value="Team A"/></label>
-        <label>Coach A Name: <input id="coachAName" value="Coach A"/></label>
+        <label>Coach A: <input id="coachAName" value="Coach A"/></label>
+        <label>
+          <span>Logo:</span>
+          <input type="file" id="teamALogo" class="logo-upload" accept="image/*">
+          <img id="teamALogoPreview" class="logo-preview" alt="Team A Logo" style="display:none"/>
+        </label>
       </div>
       <div class="game-info-row">
         <label>Team B Name: <input id="teamBName" value="Team B"/></label>
-        <label>Coach B Name: <input id="coachBName" value="Coach B"/></label>
+        <label>Coach B: <input id="coachBName" value="Coach B"/></label>
+        <label>
+          <span>Logo:</span>
+          <input type="file" id="teamBLogo" class="logo-upload" accept="image/*">
+          <img id="teamBLogoPreview" class="logo-preview" alt="Team B Logo" style="display:none"/>
+        </label>
       </div>
       <div class="game-info-row">
         <label>Periods: 
           <select id="numPeriods">
-            <option value="4" selected>4</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="5">5</option>
+            <option value="4" selected>4 Quarters</option>
+            <option value="2">2 Halves</option>
+            <option value="3">3 Periods</option>
+            <option value="5">5 Periods</option>
+            <option value="OT">Custom/O.T.</option>
           </select>
         </label>
+        <label>League/Tournament: <input id="leagueName" placeholder="League or Tournament"/></label>
+        <label>Venue: <input id="venueName" placeholder="Venue"/></label>
+        <label>Date: <input type="date" id="gameDate"/></label>
+      </div>
+      <div class="game-info-row">
+        <label>Referee(s): <input id="referees" placeholder="Referee Names (comma separated)"/></label>
       </div>
     </section>
 
@@ -56,6 +76,7 @@
         <div class="table-scroll">
           <table id="teamAPeriods" class="period-table"></table>
         </div>
+        <div class="team-summary" id="teamASummary"></div>
       </div>
       <div class="team-card" id="teamB">
         <h2>Team B Players</h2>
@@ -67,12 +88,29 @@
         <div class="table-scroll">
           <table id="teamBPeriods" class="period-table"></table>
         </div>
+        <div class="team-summary" id="teamBSummary"></div>
       </div>
     </div>
 
+    <section class="substitution-section">
+      <h2>Player Substitutions & Time Played</h2>
+      <div class="sub-row">
+        <div id="teamASubs"></div>
+        <div id="teamBSubs"></div>
+      </div>
+    </section>
+
+    <section class="event-log-section">
+      <h2>Game Log</h2>
+      <ul id="gameLog"></ul>
+      <button onclick="exportLogCSV()">Export Log as CSV</button>
+    </section>
+
     <div class="actions">
       <button onclick="window.print()">Print Scoresheet</button>
-	  <button onclick="resetScoresheet()">Reset Scoresheet</button>
+      <button onclick="resetScoresheet()">Reset Scoresheet</button>
+      <button onclick="exportCSV()">Export All Data (CSV)</button>
+      <button onclick="addToDrive()">Save to Google Drive</button>
     </div>
   </div>
   <script src="app.js"></script>
