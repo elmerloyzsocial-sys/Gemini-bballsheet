@@ -1,0 +1,61 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f8f8f8;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  max-width: 980px;
+  margin: auto;
+  background: #fff;
+  padding: 30px;
+  box-shadow: 0 2px 8px #ccc;
+  margin-top: 30px;
+}
+section label {
+  margin-right: 25px;
+}
+.teams {
+  display: flex;
+  gap: 40px;
+  margin-top: 20px;
+}
+.team-card {
+  background: #f0f7ff;
+  padding: 16px;
+  border-radius: 7px;
+  flex: 1;
+}
+.player-table, .period-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+}
+.player-table th, .player-table td, .period-table th, .period-table td {
+  border: 1px solid #bbb;
+  padding: 4px 8px;
+  text-align: center;
+}
+button {
+  margin: 5px 0;
+  padding: 7px 13px;
+  border: none;
+  background: #0074d9;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:active {
+  background: #005fa3;
+}
+@media print {
+  body, .container {
+    background: #fff;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+  }
+  button {
+    display: none !important;
+  }
+}
