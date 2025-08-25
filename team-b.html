@@ -14,18 +14,19 @@
   <main>
     <h1>Team B Scoresheet</h1>
     <section class="game-info-row">
-      <label>Team Name: <span id="teamBName"></span></label>
-      <label>Coach: <span id="coachBName"></span></label>
+      <label>Team Name: <input id="teamBName" value="Team B"/></label>
+      <label>Coach: <input id="coachBName" value="Coach B"/></label>
       <label>
         <span>Logo:</span>
+        <input type="file" id="teamBLogo" class="logo-upload" accept="image/*">
         <img id="teamBLogoPreview" class="logo-preview" alt="Team B Logo" src="team-b-logo.png" style="display:inline"/>
       </label>
     </section>
     <section class="game-meta-row">
-      <label>League/Tournament: <span id="leagueName"></span></label>
-      <label>Venue: <span id="venueName"></span></label>
-      <label>Date: <span id="gameDate"></span></label>
-      <label>Referee(s): <span id="referees"></span></label>
+      <label>League/Tournament: <input id="leagueNameB" value="Sample League"/></label>
+      <label>Venue: <input id="venueNameB" value="Arena Stadium"/></label>
+      <label>Date: <input type="date" id="gameDateB" value="2025-08-25"/></label>
+      <label>Referee(s): <input id="refereesB" value="Referee 1, Referee 2"/></label>
     </section>
     <section class="timer-section">
       <h2>⏱ Game Timer</h2>
