@@ -28,8 +28,11 @@ body.dark {
   color: var(--dark-font);
 }
 
+/* Fixed width for container - desktop/tablet focused */
 .container {
+  width: 970px;
   max-width: 970px;
+  min-width: 970px;
   margin: auto;
   background: #fff;
   padding: var(--spacing);
@@ -58,8 +61,7 @@ section.game-info {
 .game-info-row {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 0.5rem;
+  /* NO flex-wrap: wrap - keep rows */
 }
 
 label {
@@ -109,7 +111,7 @@ input[type="number"] {
   display: flex;
   gap: var(--spacing);
   margin-top: 1rem;
-  flex-wrap: wrap;
+  /* NO flex-wrap: wrap - keep in row */
 }
 
 .team-card {
@@ -117,7 +119,8 @@ input[type="number"] {
   padding: 0.8rem;
   border-radius: var(--border-radius);
   flex: 1 1 340px;
-  min-width: 280px;
+  min-width: 340px;
+  max-width: 340px;
   margin-bottom: var(--spacing);
   box-sizing: border-box;
   transition: background 0.2s;
@@ -140,7 +143,7 @@ body.dark .team-card {
 }
 
 .table-scroll {
-  max-width: 100%;
+  width: 100%;
   overflow-x: auto;
 }
 
@@ -272,7 +275,7 @@ body.dark .substitution-section {
 .sub-row {
   display: flex;
   gap: 1.2rem;
-  flex-wrap: wrap;
+  /* NO flex-wrap: wrap */
 }
 
 .event-log-section {
@@ -316,51 +319,10 @@ body.dark #themeToggle {
   color: #eaf2fb;
 }
 
-@media (max-width: 900px) {
-  .container {
-    max-width: 99vw;
-    padding: 0.4rem;
-    margin-top: 0.2rem;
-  }
-  .teams {
-    flex-direction: column;
-    gap: 0.7rem;
-  }
-  .team-card {
-    min-width: unset;
-    padding: 0.5rem;
-  }
-  .timer-section, .substitution-section, .event-log-section {
-    padding: 0.5rem;
-    max-width: 100%;
-  }
-  .player-table, .period-table {
-    min-width: unset;
-    font-size: 0.95rem;
-  }
-}
+/* Remove ALL mobile responsive styles! */
+/* Remove @media (max-width: 900px) and (max-width: 600px) blocks entirely */
 
-@media (max-width: 600px) {
-  h1 {
-    font-size: 1.2rem;
-  }
-  .game-info-row {
-    flex-direction: column;
-    gap: 0.4rem;
-  }
-  .team-card {
-    margin-bottom: 0.6rem;
-  }
-  label, input, select, button {
-    font-size: 0.97rem;
-  }
-  .timer-display {
-    font-size: 1.3rem;
-    min-width: 70px;
-    padding: 0.1rem 0.35rem;
-  }
-}
-
+/* Print styles: Keep as-is for printing */
 @media print {
   body, .container {
     background: #fff;
