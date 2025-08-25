@@ -145,7 +145,12 @@ function renderPlayerTable(team) {
       </td>
       <td><input value="${p.name}" onchange="updatePlayer('${team}',${i},'name',this.value)"/></td>
       <td><input type="checkbox" ${p.onCourt ? 'checked' : ''} onchange="toggleOnCourt('${team}',${i},this.checked)"/></td>
-      <td><input type="number" value="${p.points}" onchange="updatePlayer('${team}',${i},'points',this.value)" style="width:40px"/></td>
+      <td>
+  <span>${p.points}</span>
+  <button onclick="addPoints('${team}',${i},1)">+1</button>
+  <button onclick="addPoints('${team}',${i},2)">+2</button>
+  <button onclick="addPoints('${team}',${i},3)">+3</button>
+</td>
       <td><input type="number" value="${p.rebounds}" onchange="updatePlayer('${team}',${i},'rebounds',this.value)" style="width:40px"/></td>
       <td><input type="number" value="${p.assists}" onchange="updatePlayer('${team}',${i},'assists',this.value)" style="width:40px"/></td>
       <td><input type="number" value="${p.fouls}" onchange="updatePlayer('${team}',${i},'fouls',this.value)" style="width:40px"/></td>
@@ -178,6 +183,14 @@ function updatePlayer(team, idx, field, value) {
   if (['points','rebounds','assists','fouls','steals','blocks','turnovers','fgMade','fgAtt','ftMade','ftAtt','threeMade','threeAtt'].includes(field)) value = parseInt(value)||0;
   list[idx][field] = value;
   saveToStorage();
+  renderTeamSummary(team);
+}
+
+function addPoints(team, idx, amount) {
+  const list = team === 'A' ? playersA : playersB;
+  list[idx].points = (list[idx].points || 0) + amount;
+  saveToStorage();
+  renderPlayerTable(team);
   renderTeamSummary(team);
 }
 
@@ -571,3 +584,4 @@ window.onload = function() {
 window.exportCSV = exportCSV;
 window.exportLogCSV = exportLogCSV;
 window.addToDrive = addToDrive;
+window.addPoints = addPoints;
