@@ -268,7 +268,12 @@ function renderTeamSummary(team) {
     total.ftAtt += p.ftAtt;
     total.threeMade += p.threeMade;
     total.threeAtt += p.threeAtt;
-  });
+  })
+function updateTotalPointsDisplay() {
+  const totalA = playersA.reduce((sum, p) => sum + (p.points || 0), 0);
+  const totalB = playersB.reduce((sum, p) => sum + (p.points || 0), 0);
+  document.getElementById('totalPointsDisplay').textContent = `Total Points: A ${totalA} - B ${totalB}`;
+  };
   // Percentages
   let fgPct = total.fgAtt ? ((total.fgMade / total.fgAtt) * 100).toFixed(1) : '-';
   let ftPct = total.ftAtt ? ((total.ftMade / total.ftAtt) * 100).toFixed(1) : '-';
