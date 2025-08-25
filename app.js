@@ -134,13 +134,13 @@ function renderPlayerTable(team) {
   </tr>`;
   list.forEach((p, i) => {
     html += `<tr>
+      <td><input type="checkbox" ${p.onCourt ? 'checked' : ''} onchange="toggleOnCourt('${team}',${i},this.checked)"/></td>
       <td><input value="${p.number}" onchange="updatePlayer('${team}',${i},'number',this.value)" style="width:40px"/></td>
       <td>
         ${p.portrait ? `<img src="${p.portrait}" style="width:32px;height:32px;border-radius:50%"/>` : ''}
         <input type="file" accept="image/*" style="width:34px" onchange="uploadPortrait('${team}',${i},this)">
       </td>
       <td><input value="${p.name}" onchange="updatePlayer('${team}',${i},'name',this.value)"/></td>
-      <td><input type="checkbox" ${p.onCourt ? 'checked' : ''} onchange="toggleOnCourt('${team}',${i},this.checked)"/></td>
       <td>
   <span>${p.points}</span>
   <button onclick="addPoints('${team}',${i},1)">+1</button>
