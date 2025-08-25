@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Basketball Scoresheet - Team A</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav class="navbar">
+    <a href="index.html" class="tab active">Team A</a>
+    <a href="team-b.html" class="tab">Team B</a>
+  </nav>
+  <main>
+    <h1>Team A Scoresheet</h1>
+    <section class="game-info-row">
+      <label>Team Name: <input id="teamAName" value="Team A"/></label>
+      <label>Coach: <input id="coachAName" value="Coach A"/></label>
+      <label>
+        <span>Logo:</span>
+        <input type="file" id="teamALogo" class="logo-upload" accept="image/*">
+        <img id="teamALogoPreview" class="logo-preview" alt="Team A Logo" style="display:none"/>
+      </label>
+    </section>
+    <section class="game-meta-row">
+      <label>League/Tournament: <input id="leagueName" value="Sample League"/></label>
+      <label>Venue: <input id="venueName" value="Arena Stadium"/></label>
+      <label>Date: <input type="date" id="gameDate" value="2025-08-25"/></label>
+      <label>Referee(s): <input id="referees" value="Referee 1, Referee 2"/></label>
+    </section>
+    <section class="timer-section">
+      <h2>⏱ Game Timer</h2>
+      <div class="timer-controls">
+        <input id="timerMin" type="number" min="0" max="99" value="10" /> :
+        <input id="timerSec" type="number" min="0" max="59" value="00" />
+        <span id="timerDisplay" class="timer-display">10:00</span>
+        <span id="totalPointsDisplay" style="margin-left: 16px; font-weight: bold;"></span>
+      </div>
+      <div class="timer-btn-row">
+        <button id="startTimer">Start</button>
+        <button id="pauseTimer">Pause</button>
+        <button id="resetTimer">Reset</button>
+      </div>
+    </section>
+    <div class="team-card" id="teamA">
+      <h2>Roster</h2>
+      <div class="table-scroll">
+        <table id="teamATable" class="player-table"></table>
+      </div>
+      <button onclick="addPlayer()">Add Player</button>
+      <h3>Period Stats</h3>
+      <div class="table-scroll">
+        <table id="teamAPeriods" class="period-table"></table>
+      </div>
+      <div class="team-summary" id="teamASummary"></div>
+    </div>
+    <div class="team-card" id="gameLogCard">
+      <h2>Game Log</h2>
+      <div id="gameLogList"></div>
+    </div>
+    <section class="actions">
+      <button onclick="exportCSVTeamA()">Export Roster CSV</button>
+      <button onclick="exportPeriodCSVTeamA()">Export Period Stats CSV</button>
+      <button onclick="exportGameLogCSVTeamA()">Export Game Log CSV</button>
+      <button onclick="resetScoresheet()">Reset Scoresheet</button>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
