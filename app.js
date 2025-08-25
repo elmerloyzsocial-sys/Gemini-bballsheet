@@ -175,6 +175,7 @@ function addPoints(team, idx, amount) {
   saveToStorage();
   renderPlayerTable(team);
   renderTeamSummary(team);
+  updateTotalPointsDisplay();
 }
 
 function uploadPortrait(team, idx, input) {
