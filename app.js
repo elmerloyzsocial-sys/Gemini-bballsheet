@@ -519,6 +519,43 @@ function resetScoresheet() {
 }
 window.resetScoresheet = resetScoresheet;
 
+// ========== Blocker ==========
+function isMobileOrTablet() {
+  // Simple UA sniff + screen size
+  const ua = navigator.userAgent;
+  const w = Math.min(window.innerWidth, window.screen.width);
+  const h = Math.min(window.innerHeight, window.screen.height);
+  // Basic checks: add more if needed for your audience
+  return (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) ||
+    w < 1024 ||
+    h < 600
+  );
+}
+
+function isPortrait() {
+  return window.innerWidth < window.innerHeight;
+}
+
+function checkBlocker() {
+  const shouldBlock = isMobileOrTablet() || isPortrait();
+  const overlay = document.getElementById('blocker-overlay');
+  const body = document.body;
+
+  if (shouldBlock) {
+    overlay.style.display = 'flex';
+    body.classList.add('blocked');
+  } else {
+    overlay.style.display = 'none';
+    body.classList.remove('blocked');
+  }
+}
+
+// Run check on load and resize/orientationchange
+window.addEventListener('DOMContentLoaded', checkBlocker);
+window.addEventListener('resize', checkBlocker);
+window.addEventListener('orientationchange', checkBlocker);
+
 // ========== INIT ==========
 window.addPlayer = addPlayer;
 window.removePlayer = removePlayer;

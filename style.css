@@ -319,6 +319,48 @@ body.dark #themeToggle {
   color: #eaf2fb;
 }
 
+/* Blocker overlay styles */
+#blocker-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(20,20,20,0.96);
+  display: none;
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#blocker-message {
+  color: #fff;
+  font-size: 2rem;
+  padding: 2rem 3rem;
+  background: #222;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+/* Hide #app-content when blocked */
+.blocked #app-content {
+  display: none !important;
+}
+
+/* Optional: Prevent scrolling when blocked */
+.blocked {
+  overflow: hidden;
+  height: 100vh;
+}
+
+/* CSS fallback: Hide app on small screens and portrait orientation */
+@media (max-width: 1024px), (orientation: portrait) {
+  #blocker-overlay {
+    display: flex !important;
+  }
+  #app-content {
+    display: none !important;
+  }
+}
 /* Remove ALL mobile responsive styles! */
 /* Remove @media (max-width: 900px) and (max-width: 600px) blocks entirely */
 
