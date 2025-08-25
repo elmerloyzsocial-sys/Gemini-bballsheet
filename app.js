@@ -9,19 +9,86 @@ let numPeriods = 4;
 let teamAPeriodStats = [];
 let teamBPeriodStats = [];
 
-// Init
+// Timer Model
+let timerSeconds = 600; // default 10:00
+let timerInterval = null;
+let timerRunning = false;
+
+function pad(n) {
+  return n.toString().padStart(2, '0');
+}
+
+function formatTimer(secs) {
+  const min = Math.floor(secs / 60);
+  const sec = secs % 60;
+  return `${pad(min)}:${pad(sec)}`;
+}
+
+function updateTimerDisplay() {
+  document.getElementById('timerDisplay').textContent = formatTimer(timerSeconds);
+  document.getElementById('timerMin').value = pad(Math.floor(timerSeconds / 60));
+  document.getElementById('timerSec').value = pad(timerSeconds % 60);
+}
+
+function startTimer() {
+  if (timerRunning) return;
+  timerRunning = true;
+  timerInterval = setInterval(() => {
+    if (timerSeconds > 0) {
+      timerSeconds--;
+      updateTimerDisplay();
+    } else {
+      pauseTimer();
+    }
+  }, 1000);
+}
+
+function pauseTimer() {
+  timerRunning = false;
+  if (timerInterval) clearInterval(timerInterval);
+}
+
+function resetTimer() {
+  pauseTimer();
+  timerSeconds = 60 * parseInt(document.getElementById('timerMin').value || 10) +
+                 parseInt(document.getElementById('timerSec').value || 0);
+  updateTimerDisplay();
+}
+
+function editTimer() {
+  pauseTimer();
+  let min = parseInt(document.getElementById('timerMin').value) || 0;
+  let sec = parseInt(document.getElementById('timerSec').value) || 0;
+  if (min > 99) min = 99;
+  if (sec > 59) sec = 59;
+  timerSeconds = min * 60 + sec;
+  updateTimerDisplay();
+}
+
+function initTimer() {
+  // Editable minute/second fields update timer
+  document.getElementById('timerMin').addEventListener('change', editTimer);
+  document.getElementById('timerSec').addEventListener('change', editTimer);
+  document.getElementById('startTimer').addEventListener('click', startTimer);
+  document.getElementById('pauseTimer').addEventListener('click', pauseTimer);
+  document.getElementById('resetTimer').addEventListener('click', resetTimer);
+  updateTimerDisplay();
+}
+
+// Scoresheet Model
 function init() {
   document.getElementById('numPeriods').addEventListener('change', e => {
     numPeriods = parseInt(e.target.value);
     setPeriodStats();
     renderPeriodTables();
   });
-
   setPeriodStats();
   renderPlayerTable('A');
   renderPlayerTable('B');
   renderPeriodTables();
+  initTimer();
 }
+
 function setPeriodStats() {
   teamAPeriodStats = Array(numPeriods).fill().map(() => ({ score: 0, timeouts: 0, teamFouls: 0 }));
   teamBPeriodStats = Array(numPeriods).fill().map(() => ({ score: 0, timeouts: 0, teamFouls: 0 }));
