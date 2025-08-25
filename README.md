@@ -1,3 +1,14 @@
+/
+├── index.html          # Team A page (interactive, editable)
+├── team-b.html         # Team B page (static, read-only)
+├── style.css           # Shared NBA-inspired styles
+├── app.js              # Team A logic and interactivity
+├── team-b.js           # Team B display logic and data
+├── team-b-logo.png     # Team B logo image (replace with your actual logo)
+├── README.md           # Project overview and instructions
+├── manifest.json       # (optional) PWA manifest
+├── service-worker.js   # (optional) For offline/PWA support
+
 # Basketball Scoresheet (Advanced)
 
 A feature-rich, mobile-friendly basketball scoresheet web app for teams, officials, fans, and leagues.
