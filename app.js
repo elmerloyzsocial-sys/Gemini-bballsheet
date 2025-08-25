@@ -119,10 +119,10 @@ function renderPlayerTable(team) {
   const table = document.getElementById(tableId);
 
   let html = `<tr>
+    <th>On Court</th>
     <th>#</th>
     <th>Portrait</th>
     <th>Name</th>
-    <th>On Court</th>
     <th>Pts</th>
     <th>Reb</th>
     <th>Ast</th>
