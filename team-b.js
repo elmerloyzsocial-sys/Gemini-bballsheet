@@ -10,7 +10,7 @@ let teamBInfo = {
 };
 
 // ============ ROSTER ============
-const teamBPlayers = [
+let teamBPlayers = [
   {
     name: "Kevin Tran",
     points: 21,
@@ -69,8 +69,8 @@ const teamBPlayers = [
 ];
 
 // ============ PERIODS ============
-const periods = ["Q1", "Q2", "Q3", "Q4"];
-const periodStats = [
+let periods = ["Q1", "Q2", "Q3", "Q4"];
+let periodStatsB = [
   { points: 20, rebounds: 10, assists: 8 },
   { points: 18, rebounds: 9, assists: 7 },
   { points: 22, rebounds: 11, assists: 9 },
@@ -78,7 +78,7 @@ const periodStats = [
 ];
 
 // ============ GAME LOG ============
-const gameLog = [
+let gameLogB = [
   { time: "00:05", event: "Kevin Tran scored 2 points" },
   { time: "00:10", event: "Isaac Kim got a rebound" },
   { time: "00:15", event: "Noah Davis assisted Kevin Tran" },
@@ -110,21 +110,62 @@ function renderPlayerTable() {
     <th>Steals</th>
     <th>Blocks</th>
     <th>Time Played</th>
+    <th>Remove</th>
   </tr>`;
-  teamBPlayers.forEach(p => {
+  teamBPlayers.forEach((p, i) => {
     html += `<tr>
-      <td>${p.portrait ? `<img src="${p.portrait}" style="width:34px;border-radius:50%;">` : ""}</td>
-      <td>${p.name}</td>
-      <td>${p.points}</td>
-      <td>${p.rebounds}</td>
-      <td>${p.assists}</td>
-      <td>${p.fouls}</td>
-      <td>${p.steals}</td>
-      <td>${p.blocks}</td>
-      <td>${formatTimer(p.timePlayed)}</td>
+      <td>${p.portrait ? `<img src="${p.portrait}" style="width:34px;border-radius:50%;">` : `<input type="file" accept="image/*" style="width:34px" onchange="uploadPortraitB(${i},this)">`}</td>
+      <td><input value="${p.name}" onchange="updatePlayerB(${i},'name',this.value)"/></td>
+      <td>
+        <span>${p.points}</span>
+        <button onclick="addPointsB(${i},1)">+1</button>
+        <button onclick="addPointsB(${i},2)">+2</button>
+        <button onclick="addPointsB(${i},3)">+3</button>
+      </td>
+      <td><input type="number" value="${p.rebounds}" onchange="updatePlayerB(${i},'rebounds',this.value)" style="width:40px"/></td>
+      <td><input type="number" value="${p.assists}" onchange="updatePlayerB(${i},'assists',this.value)" style="width:40px"/></td>
+      <td><input type="number" value="${p.fouls}" onchange="updatePlayerB(${i},'fouls',this.value)" style="width:40px"/></td>
+      <td><input type="number" value="${p.steals}" onchange="updatePlayerB(${i},'steals',this.value)" style="width:40px"/></td>
+      <td><input type="number" value="${p.blocks}" onchange="updatePlayerB(${i},'blocks',this.value)" style="width:40px"/></td>
+      <td><input type="number" value="${p.timePlayed}" onchange="updatePlayerB(${i},'timePlayed',this.value)" style="width:60px"/></td>
+      <td><button onclick="removePlayerB(${i})">-</button></td>
     </tr>`;
   });
   table.innerHTML = html;
+  renderTeamSummary();
+}
+
+function addPlayerB() {
+  teamBPlayers.push({ name: "", points: 0, rebounds: 0, assists: 0, fouls: 0, steals: 0, blocks: 0, portrait: "", timePlayed: 0 });
+  renderPlayerTable();
+}
+
+function removePlayerB(idx) {
+  teamBPlayers.splice(idx, 1);
+  renderPlayerTable();
+}
+
+function updatePlayerB(idx, field, value) {
+  if (['points','rebounds','assists','fouls','steals','blocks','timePlayed'].includes(field)) value = parseInt(value)||0;
+  teamBPlayers[idx][field] = value;
+  renderPlayerTable();
+}
+
+function addPointsB(idx, amount) {
+  teamBPlayers[idx].points = (teamBPlayers[idx].points || 0) + amount;
+  renderPlayerTable();
+}
+
+function uploadPortraitB(idx, input) {
+  const file = input.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      teamBPlayers[idx].portrait = e.target.result;
+      renderPlayerTable();
+    };
+    reader.readAsDataURL(file);
+  }
 }
 
 function renderTeamSummary() {
@@ -139,21 +180,26 @@ function renderTeamSummary() {
 function renderPeriodStats() {
   const table = document.getElementById('teamBPeriods');
   let html = `<tr><th>Period</th><th>Points</th><th>Rebounds</th><th>Assists</th></tr>`;
-  periodStats.forEach((p, i) => {
+  periodStatsB.forEach((p, i) => {
     html += `<tr>
       <td>${periods[i]}</td>
-      <td>${p.points}</td>
-      <td>${p.rebounds}</td>
-      <td>${p.assists}</td>
+      <td><input type="number" value="${p.points}" onchange="updatePeriodStatB(${i},'points',this.value)" style="width:60px"/></td>
+      <td><input type="number" value="${p.rebounds}" onchange="updatePeriodStatB(${i},'rebounds',this.value)" style="width:60px"/></td>
+      <td><input type="number" value="${p.assists}" onchange="updatePeriodStatB(${i},'assists',this.value)" style="width:60px"/></td>
     </tr>`;
   });
   table.innerHTML = html;
 }
 
+function updatePeriodStatB(idx, field, value) {
+  periodStatsB[idx][field] = parseInt(value)||0;
+  renderPeriodStats();
+}
+
 function renderGameLog() {
   const list = document.getElementById('gameLogList');
   let html = "<ul>";
-  gameLog.forEach(ev => {
+  gameLogB.forEach(ev => {
     html += `<li><b>${ev.time}</b> - ${ev.event}</li>`;
   });
   html += "</ul>";
@@ -177,7 +223,7 @@ function exportCSVTeamB() {
 
 function exportPeriodCSVTeamB() {
   let csv = "Period,Points,Rebounds,Assists\n";
-  periodStats.forEach((p, i) => {
+  periodStatsB.forEach((p, i) => {
     csv += `${periods[i]},${p.points},${p.rebounds},${p.assists}\n`;
   });
   downloadCSV(csv, "team-b-periods.csv");
@@ -185,7 +231,7 @@ function exportPeriodCSVTeamB() {
 
 function exportGameLogCSVTeamB() {
   let csv = "Time,Event\n";
-  gameLog.forEach(ev => {
+  gameLogB.forEach(ev => {
     csv += `${ev.time},${ev.event}\n`;
   });
   downloadCSV(csv, "team-b-gamelog.csv");
@@ -205,6 +251,18 @@ function formatTimer(seconds) {
   const min = Math.floor(seconds / 60);
   const sec = seconds % 60;
   return `${min}:${sec.toString().padStart(2, '0')}`;
+}
+
+function resetScoresheetB() {
+  if (confirm("Are you sure you want to reset all Team B data?")) {
+    teamBPlayers = [];
+    periodStatsB = periods.map(() => ({ points: 0, rebounds: 0, assists: 0 }));
+    gameLogB = [];
+    renderPlayerTable();
+    renderPeriodStats();
+    renderGameLog();
+    renderTeamSummary();
+  }
 }
 
 // ============ EVENT HANDLERS FOR EDITABLE FIELDS ============
