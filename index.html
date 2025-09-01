@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball Team Organization</title>
+    <!-- Google Fonts for advanced, modern typography -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global styles: Mobile-first, responsive design with advanced styling (gradients, shadows, animations) */
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #1e3c72, #2a5298); /* Advanced gradient background */
+            color: white;
+            transition: background 0.3s; /* Smooth theme transitions */
+        }
+        .dark-mode { background: linear-gradient(to bottom, #000, #333); color: #ddd; } /* Dark mode for advanced feel */
+        
+        /* Header: Sticky for easy navigation, hamburger menu for mobile */
+        header {
+            position: sticky;
+            top: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+        }
+        #hamburger { display: block; cursor: pointer; font-size: 24px; } /* Mobile hamburger icon */
+        nav { display: none; } /* Hidden by default on mobile */
+        nav ul { list-style: none; padding: 0; display: flex; flex-direction: column; } /* Column for mobile menu */
+        nav ul li { margin: 10px; }
+        nav ul li a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; } /* Hover animation */
+        nav ul li a:hover { color: #ffd700; } /* Gold hover for advanced style */
+        
+        /* Sections: Hidden by default, shown via JS for SPA feel */
+        section { display: none; padding: 20px; animation: fadeIn 0.5s; } /* Fade-in animation */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } } /* Keyframe for smooth entry */
+        
+        /* Cards for roster/gallery: Grid layout, responsive for mobile */
+        .card { background: rgba(255,255,255,0.1); border-radius: 10px; padding: 10px; margin: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); transition: transform 0.3s; } /* Hover scale animation */
+        .card:hover { transform: scale(1.05); } /* Interactive touch feedback */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; } /* Responsive grid */
+        
+        /* Tables for stats/schedule: Responsive, scrollable on mobile */
+        table { width: 100%; border-collapse: collapse; overflow-x: auto; display: block; } /* Mobile scroll */
+        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+        
+        /* Forms for admin: Easy to use, with labels and buttons */
+        form { display: flex; flex-direction: column; }
+        input, textarea, button { margin: 5px 0; padding: 10px; border-radius: 5px; border: none; }
+        button { background: #ffd700; color: black; cursor: pointer; transition: background 0.3s; } /* Advanced button style */
+        button:hover { background: #e6c200; }
+        
+        /* Media queries for larger screens (though mobile-focused) */
+        @media (min-width: 768px) {
+            #hamburger { display: none; }
+            nav { display: block; }
+            nav ul { flex-direction: row; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <!-- Team logo and title for branding -->
+        <h1>Willowdale Basketball</h1>
+        <div id="hamburger">&#9776;</div> <!-- Hamburger for mobile menu -->
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="#" onclick="showSection('home')">Home</a></li>
+                <li><a href="#" onclick="showSection('roster')">Roster</a></li>
+                <li><a href="#" onclick="showSection('schedule')">Schedule</a></li>
+                <li><a href="#" onclick="showSection('stats')">Stats</a></li>
+                <li><a href="#" onclick="showSection('gallery')">Gallery</a></li>
+                <li><a href="#" onclick="showSection('admin')">Admin</a></li>
+                <li><button onclick="toggleDarkMode()">Toggle Dark Mode</button></li> <!-- Advanced theme toggle -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Home Section: Team overview and news -->
+    <section id="home" style="display: block;"> <!-- Shown by default -->
+        <h2>Welcome to Our Team</h2>
+        <p>Latest News:</p>
+        <div id="news-feed"></div> <!-- Dynamically populated via JS -->
+    </section>
+
+    <!-- Roster Section: Player list -->
+    <section id="roster">
+        <h2>Team Roster</h2>
+        <input type="text" id="roster-search" placeholder="Search Player" oninput="filterRoster()"> <!-- Easy search -->
+        <div id="roster-list" class="grid"></div> <!-- Grid for cards -->
+    </section>
+
+    <!-- Schedule Section: Game list -->
+    <section id="schedule">
+        <h2>Game Schedule</h2>
+        <table id="schedule-table">
+            <thead><tr><th>Date</th><th>Opponent</th><th>Location</th><th>Result</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <!-- Stats Section: Tables -->
+    <section id="stats">
+        <h2>Team Statistics</h2>
+        <table id="stats-table">
+            <thead><tr><th>Player</th><th>Points</th><th>Rebounds</th><th>Assists</th></tr></thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <!-- Gallery Section: Image grid -->
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div id="gallery-grid" class="grid"></div>
+    </section>
+
+    <!-- Admin Dashboard: Protected, for data upload -->
+    <section id="admin">
+        <h2>Admin Dashboard</h2>
+        <div id="admin-login">
+            <input type="password" id="admin-pass" placeholder="Admin Password">
+            <button onclick="loginAdmin()">Login</button>
+        </div>
+        <div id="admin-forms" style="display: none;">
+            <!-- Form to add news -->
+            <h3>Add News</h3>
+            <textarea id="news-text" placeholder="News content"></textarea>
+            <button onclick="addNews()">Add</button>
+            
+            <!-- Form to add player -->
+            <h3>Add Player</h3>
+            <input id="player-name" placeholder="Name">
+            <input id="player-pos" placeholder="Position">
+            <input id="player-bio" placeholder="Bio">
+            <input id="player-img" placeholder="Image URL">
+            <button onclick="addPlayer()">Add</button>
+            
+            <!-- Form to add game -->
+            <h3>Add Game</h3>
+            <input id="game-date" placeholder="Date (YYYY-MM-DD)">
+            <input id="game-opp" placeholder="Opponent">
+            <input id="game-loc" placeholder="Location">
+            <input id="game-res" placeholder="Result">
+            <button onclick="addGame()">Add</button>
+            
+            <!-- Form to add stats (simplified) -->
+            <h3>Update Stats</h3>
+            <input id="stats-player" placeholder="Player Name">
+            <input id="stats-pts" placeholder="Points">
+            <input id="stats-reb" placeholder="Rebounds">
+            <input id="stats-ast" placeholder="Assists">
+            <button onclick="updateStats()">Update</button>
+            
+            <!-- Form to add gallery image -->
+            <h3>Add Image</h3>
+            <input id="gallery-img" placeholder="Image URL">
+            <button onclick="addImage()">Add</button>
+            
+            <button onclick="exportData()">Export Data (JSON)</button> <!-- For easy management -->
+        </div>
+    </section>
+
+    <script>
+        // Data storage: Arrays for each section, loaded from localStorage for persistence
+        let news = JSON.parse(localStorage.getItem('news')) || []; // News array
+        let players = JSON.parse(localStorage.getItem('players')) || []; // Players array
+        let games = JSON.parse(localStorage.getItem('games')) || []; // Games array
+        let stats = JSON.parse(localStorage.getItem('stats')) || {}; // Stats object (player: {pts, reb, ast})
+        let gallery = JSON.parse(localStorage.getItem('gallery')) || []; // Gallery images
+        const adminPassword = 'admin123'; // Simple password (change in production)
+
+        // Function: Show/hide sections for SPA navigation
+        // Description: Hides all sections and shows the selected one, easy for mobile use
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none'); // Hide all
+            document.getElementById(id).style.display = 'block'; // Show selected
+            if (window.innerWidth < 768) { document.getElementById('nav-menu').style.display = 'none'; } // Close menu on mobile
+            // Line: Refresh content on show
+            refreshContent(); // Call to update dynamic content
+        }
+
+        // Function: Toggle hamburger menu on mobile
+        // Description: Shows/hides nav menu for easy access
+        document.getElementById('hamburger').onclick = function() {
+            let menu = document.getElementById('nav-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block'; // Toggle visibility
+        };
+
+        // Function: Refresh all dynamic content
+        // Description: Populates sections with data from arrays, called on load and after updates
+        function refreshContent() {
+            // News feed: Create paragraphs for each news item
+            let newsFeed = document.getElementById('news-feed');
+            newsFeed.innerHTML = '';
+            news.forEach(item => {
+                let p = document.createElement('p');
+                p.textContent = item;
+                newsFeed.appendChild(p);
+            });
+
+            // Roster: Create cards for players
+            let rosterList = document.getElementById('roster-list');
+            rosterList.innerHTML = '';
+            players.forEach(player => {
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<h3>${player.name}</h3><p>${player.pos}</p><img src="${player.img}" alt="${player.name}" style="width:100%;"><p>${player.bio}</p>
+                                  <button onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')">Share Profile</button>`; // Share button
+                rosterList.appendChild(card);
+            });
+
+            // Schedule: Populate table rows
+            let scheduleBody = document.getElementById('schedule-table').querySelector('tbody');
+            scheduleBody.innerHTML = '';
+            games.forEach(game => {
+                let row = document.createElement('tr');
+                row.innerHTML = `<td>${game.date}</td><td>${game.opp}</td><td>${game.loc}</td><td>${game.res}</td>`;
+                scheduleBody.appendChild(row);
+            });
+
+            // Stats: Populate table rows
+            let statsBody = document.getElementById('stats-table').querySelector('tbody');
+            statsBody.innerHTML = '';
+            for (let player in stats) {
+                let row = document.createElement('tr');
+                row.innerHTML = `<td>${player}</td><td>${stats[player].pts}</td><td>${stats[player].reb}</td><td>${stats[player].ast}</td>`;
+                statsBody.appendChild(row);
+            }
+
+            // Gallery: Create image cards
+            let galleryGrid = document.getElementById('gallery-grid');
+            galleryGrid.innerHTML = '';
+            gallery.forEach(img => {
+                let card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `<img src="${img}" alt="Gallery Image" style="width:100%;">`;
+                galleryGrid.appendChild(card);
+            });
+        }
+
+        // Function: Filter roster by search
+        // Description: Hides non-matching player cards for easy search
+        function filterRoster() {
+            let input = document.getElementById('roster-search').value.toLowerCase();
+            let cards = document.querySelectorAll('#roster-list .card');
+            cards.forEach(card => {
+                let name = card.querySelector('h3').textContent.toLowerCase();
+                card.style.display = name.includes(input) ? 'block' : 'none'; // Show/hide based on match
+            });
+        }
+
+        // Function: Admin login
+        // Description: Checks password and shows forms if correct
+        function loginAdmin() {
+            let pass = document.getElementById('admin-pass').value;
+            if (pass === adminPassword) {
+                document.getElementById('admin-login').style.display = 'none';
+                document.getElementById('admin-forms').style.display = 'block'; // Show admin tools
+            } else {
+                alert('Incorrect password');
+            }
+        }
+
+        // Function: Add news
+        // Description: Adds text to news array and saves to localStorage
+        function addNews() {
+            let text = document.getElementById('news-text').value;
+            if (text) {
+                news.push(text); // Add to array
+                localStorage.setItem('news', JSON.stringify(news)); // Save
+                refreshContent(); // Update UI
+                document.getElementById('news-text').value = ''; // Clear input
+            }
+        }
+
+        // Function: Add player
+        // Description: Creates player object and adds to array
+        function addPlayer() {
+            let name = document.getElementById('player-name').value;
+            let pos = document.getElementById('player-pos').value;
+            let bio = document.getElementById('player-bio').value;
+            let img = document.getElementById('player-img').value;
+            if (name && pos) {
+                players.push({name, pos, bio, img}); // Add object
+                localStorage.setItem('players', JSON.stringify(players)); // Save
+                refreshContent();
+                // Clear inputs
+                document.getElementById('player-name').value = '';
+                document.getElementById('player-pos').value = '';
+                document.getElementById('player-bio').value = '';
+                document.getElementById('player-img').value = '';
+            }
+        }
+
+        // Function: Add game
+        // Description: Adds game details to array
+        function addGame() {
+            let date = document.getElementById('game-date').value;
+            let opp = document.getElementById('game-opp').value;
+            let loc = document.getElementById('game-loc').value;
+            let res = document.getElementById('game-res').value;
+            if (date && opp) {
+                games.push({date, opp, loc, res}); // Add object
+                localStorage.setItem('games', JSON.stringify(games)); // Save
+                refreshContent();
+                // Clear inputs
+                document.getElementById('game-date').value = '';
+                document.getElementById('game-opp').value = '';
+                document.getElementById('game-loc').value = '';
+                document.getElementById('game-res').value = '';
+            }
+        }
+
+        // Function: Update stats
+        // Description: Updates or adds stats for a player
+        function updateStats() {
+            let player = document.getElementById('stats-player').value;
+            let pts = document.getElementById('stats-pts').value;
+            let reb = document.getElementById('stats-reb').value;
+            let ast = document.getElementById('stats-ast').value;
+            if (player) {
+                stats[player] = {pts, reb, ast}; // Update object
+                localStorage.setItem('stats', JSON.stringify(stats)); // Save
+                refreshContent();
+                // Clear inputs
+                document.getElementById('stats-player').value = '';
+                document.getElementById('stats-pts').value = '';
+                document.getElementById('stats-reb').value = '';
+                document.getElementById('stats-ast').value = '';
+            }
+        }
+
+        // Function: Add image to gallery
+        // Description: Adds URL to gallery array
+        function addImage() {
+            let img = document.getElementById('gallery-img').value;
+            if (img) {
+                gallery.push(img); // Add URL
+                localStorage.setItem('gallery', JSON.stringify(gallery)); // Save
+                refreshContent();
+                document.getElementById('gallery-img').value = ''; // Clear
+            }
+        }
+
+        // Function: Export data as JSON
+        // Description: Downloads all data for backup/management
+        function exportData() {
+            let data = {news, players, games, stats, gallery};
+            let blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement('a');
+            a.href = url;
+            a.download = 'team-data.json';
+            a.click(); // Trigger download
+        }
+
+        // Function: Share link (simulated, uses web share API for mobile)
+        // Description: Shares a deep link for shareability
+        function shareLink(path) {
+            let url = window.location.origin + path;
+            if (navigator.share) {
+                navigator.share({title: 'Share Profile', url}); // Mobile share
+            } else {
+                alert('Share this link: ' + url); // Fallback
+            }
+        }
+
+        // Function: Toggle dark mode
+        // Description: Switches theme for advanced user experience
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode'); // Toggle class
+        }
+
+        // Initial load: Refresh content on page load
+        refreshContent();
+    </script>
+</body>
+</html>
