@@ -25,15 +25,21 @@
         header {
             position: sticky;
             top: 0;
-            background: #8b0000; /* Dark red for header */
+            background: #8b0000; /* Dark red fallback */
+            background-image: url('https://images.unsplash.com/photo-1546519638-7e78a087e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); /* Basketball court image */
+            background-size: cover; /* Full coverage */
+            background-position: center; /* Centered image */
+            background-repeat: no-repeat; /* No tiling */
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Subtle shadow */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
             color: #ffffff; /* White text */
-            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5); /* Dark blue text lining (outline effect) */
+            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5); /* Dark blue text lining */
+            position: relative; /* For overlay positioning */
+        }
         }
         #hamburger { 
             display: block; 
