@@ -242,11 +242,11 @@
     </section>
 
     <script type="module"> /* <script> */
-		import { renderRosterSection } from './roster.js';
-        import { renderScheduleSection } from './schedule.js';
-        import { renderStatsSection } from './stats.js';
-        import { renderGallerySection } from './gallery.js';
-        import { renderNewsSection } from './news.js';		
+		import { renderRosterSection } from './renderers/roster.js';
+        import { renderScheduleSection } from './renderers/schedule.js';
+        import { renderStatsSection } from './renderers/stats.js';
+        import { renderGallerySection } from './renderers/gallery.js';
+        import { renderNewsSection } from './renderers/news.js';
 	
         // Data storage: Arrays for each section, loaded from localStorage
         let news = JSON.parse(localStorage.getItem('news')) || [];
