@@ -26,7 +26,7 @@
             position: sticky;
             top: 0;
             background: #8b0000; /* Dark red fallback */
-            background-image: url('court.jpg'); /* background-image: url('https://photos.app.goo.gl/pNhe88WmScnPYTRg8'); */ /* background-image: url('https://images.unsplash.com/photo-1546519638-7e78a087e113?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80'); */ /* Basketball court image */
+            background-image: url('court.jpg'); /* background-image: url('https://photos.app.goo.gl/pNhe88WmScnPYTRg8'); */ /* background-image: url('https://images.unsplash.com/photo-1546519638-7e78a[...] */
             background-size: cover; /* Full coverage */
             background-position: center; /* Centered image */
             background-repeat: no-repeat; /* No tiling */
@@ -41,10 +41,10 @@
             position: relative; /* For overlay positioning */
         } /* used Header h1 font was Wide Latin */
         header h1 {
+            /* "Wide Latin" is not a Google font; will fallback to serif */
             font-family: 'Wide Latin', serif;
             letter-spacing: 2px;
             font-size: 2.2em;
-        }
         }
         #hamburger { 
             display: block; 
@@ -152,7 +152,7 @@
                 <li><a href="#" onclick="showSection('stats')">Stats</a></li>
                 <li><a href="#" onclick="showSection('gallery')">Gallery</a></li>
                 <li><a href="#" onclick="showSection('admin')">Admin</a></li>
-                <li><button onclick="toggleDarkMode()">Toggle Dark Mode</button></li> <!-- Theme toggle -->
+                <li><button type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button></li> <!-- Theme toggle -->
             </ul>
         </nav>
     </header>
@@ -200,13 +200,13 @@
         <h2>Admin Dashboard</h2>
         <div id="admin-login">
             <input type="password" id="admin-pass" placeholder="Admin Password">
-            <button onclick="loginAdmin()">Login</button>
+            <button type="button" onclick="loginAdmin()">Login</button>
         </div>
         <div id="admin-forms" style="display: none;">
             <!-- Form to add news -->
             <h3>Add News</h3>
             <textarea id="news-text" placeholder="News content"></textarea>
-            <button onclick="addNews()">Add</button>
+            <button type="button" onclick="addNews()">Add</button>
             
             <!-- Form to add player -->
             <h3>Add Player</h3>
@@ -214,7 +214,7 @@
             <input id="player-pos" placeholder="Position">
             <input id="player-bio" placeholder="Bio">
             <input id="player-img" placeholder="Image URL">
-            <button onclick="addPlayer()">Add</button>
+            <button type="button" onclick="addPlayer()">Add</button>
             
             <!-- Form to add game -->
             <h3>Add Game</h3>
@@ -222,7 +222,7 @@
             <input id="game-opp" placeholder="Opponent">
             <input id="game-loc" placeholder="Location">
             <input id="game-res" placeholder="Result">
-            <button onclick="addGame()">Add</button>
+            <button type="button" onclick="addGame()">Add</button>
             
             <!-- Form to add stats -->
             <h3>Update Stats</h3>
@@ -230,24 +230,25 @@
             <input id="stats-pts" placeholder="Points">
             <input id="stats-reb" placeholder="Rebounds">
             <input id="stats-ast" placeholder="Assists">
-            <button onclick="updateStats()">Update</button>
+            <button type="button" onclick="updateStats()">Update</button>
             
             <!-- Form to add gallery image -->
             <h3>Add Image</h3>
             <input id="gallery-img" placeholder="Image URL">
-            <button onclick="addImage()">Add</button>
+            <button type="button" onclick="addImage()">Add</button>
             
-            <button onclick="exportData()">Export Data (JSON)</button>
+            <button type="button" onclick="exportData()">Export Data (JSON)</button>
         </div>
     </section>
 
-    <script type="module"> /* <script> */
-		import { renderRosterSection } from './renderers/roster.js';
+    <script type="module">
+        // Make sure the renderers modules exist in your project!
+        import { renderRosterSection } from './renderers/roster.js';
         import { renderScheduleSection } from './renderers/schedule.js';
         import { renderStatsSection } from './renderers/stats.js';
         import { renderGallerySection } from './renderers/gallery.js';
         import { renderNewsSection } from './renderers/news.js';
-	
+    
         // Data storage: Arrays for each section, loaded from localStorage
         let news = JSON.parse(localStorage.getItem('news')) || [];
         let players = JSON.parse(localStorage.getItem('players')) || [];
@@ -258,18 +259,14 @@
 
         // Function: Show/hide sections for SPA navigation
         // Description: Hides all sections and shows the selected one
-        function showSection(id) {
+        window.showSection = function(id) {
             document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
             document.getElementById(id).style.display = 'block';
             if (window.innerWidth < 768) { document.getElementById('nav-menu').style.display = 'none'; }
-            callSectionRenderer(id);			
-			/* document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            if (window.innerWidth < 768) { document.getElementById('nav-menu').style.display = 'none'; }
-            refreshContent(); */
+            callSectionRenderer(id);
         }
-		
-		function callSectionRenderer(sectionId) {
+    
+        function callSectionRenderer(sectionId) {
             switch (sectionId) {
                 case 'home': renderNewsSection(news); break;
                 case 'roster': renderRosterSection(players); break;
@@ -277,14 +274,14 @@
                 case 'stats': renderStatsSection(stats); break;
                 case 'gallery': renderGallerySection(gallery); break;
             }
-		}
-        // Function: Toggle hamburger menu on mobile
+        }
+        // Hamburger menu toggle for mobile
         document.getElementById('hamburger').onclick = function() {
             let menu = document.getElementById('nav-menu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         };
 
-        // Function: Refresh all dynamic content
+        // Refresh all dynamic content (not used on initial load)
         function refreshContent() {
             // News feed
             let newsFeed = document.getElementById('news-feed');
@@ -302,7 +299,7 @@
                 let card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `<h3>${player.name}</h3><p>${player.pos}</p><img src="${player.img}" alt="${player.name}" style="width:100%;"><p>${player.bio}</p>
-                                  <button onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')">Share Profile</button>`;
+                                  <button type="button" onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')">Share Profile</button>`;
                 rosterList.appendChild(card);
             });
 
@@ -335,8 +332,8 @@
             });
         }
 
-        // Function: Filter roster by search
-        function filterRoster() {
+        // Filter roster by search
+        window.filterRoster = function() {
             let input = document.getElementById('roster-search').value.toLowerCase();
             let cards = document.querySelectorAll('#roster-list .card');
             cards.forEach(card => {
@@ -345,8 +342,8 @@
             });
         }
 
-        // Function: Admin login
-        function loginAdmin() {
+        // Admin login
+        window.loginAdmin = function() {
             let pass = document.getElementById('admin-pass').value;
             if (pass === adminPassword) {
                 document.getElementById('admin-login').style.display = 'none';
@@ -356,8 +353,8 @@
             }
         }
 
-        // Function: Add news
-        function addNews() {
+        // Add news
+        window.addNews = function() {
             let text = document.getElementById('news-text').value;
             if (text) {
                 news.push(text);
@@ -367,8 +364,8 @@
             }
         }
 
-        // Function: Add player
-        function addPlayer() {
+        // Add player
+        window.addPlayer = function() {
             let name = document.getElementById('player-name').value;
             let pos = document.getElementById('player-pos').value;
             let bio = document.getElementById('player-bio').value;
@@ -384,8 +381,8 @@
             }
         }
 
-        // Function: Add game
-        function addGame() {
+        // Add game
+        window.addGame = function() {
             let date = document.getElementById('game-date').value;
             let opp = document.getElementById('game-opp').value;
             let loc = document.getElementById('game-loc').value;
@@ -401,8 +398,8 @@
             }
         }
 
-        // Function: Update stats
-        function updateStats() {
+        // Update stats
+        window.updateStats = function() {
             let player = document.getElementById('stats-player').value;
             let pts = document.getElementById('stats-pts').value;
             let reb = document.getElementById('stats-reb').value;
@@ -418,8 +415,8 @@
             }
         }
 
-        // Function: Add image to gallery
-        function addImage() {
+        // Add image to gallery
+        window.addImage = function() {
             let img = document.getElementById('gallery-img').value;
             if (img) {
                 gallery.push(img);
@@ -429,8 +426,8 @@
             }
         }
 
-        // Function: Export data as JSON
-        function exportData() {
+        // Export data as JSON
+        window.exportData = function() {
             let data = {news, players, games, stats, gallery};
             let blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
             let url = URL.createObjectURL(blob);
@@ -440,8 +437,8 @@
             a.click();
         }
 
-        // Function: Share link
-        function shareLink(path) {
+        // Share link
+        window.shareLink = function(path) {
             let url = window.location.origin + path;
             if (navigator.share) {
                 navigator.share({title: 'Share Profile', url});
@@ -450,13 +447,13 @@
             }
         }
 
-        // Function: Toggle dark mode
-        function toggleDarkMode() {
+        // Toggle dark mode
+        window.toggleDarkMode = function() {
             document.body.classList.toggle('dark-mode');
         }
 
         // Initial load
-        window.onload = function() { renderNewsSection(news); }; /* refreshContent(); */
+        window.onload = function() { renderNewsSection(news); };
     </script>
 </body>
 </html>
