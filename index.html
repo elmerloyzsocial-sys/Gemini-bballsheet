@@ -4,134 +4,119 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basketball Team Organization</title>
-    <!-- Google Fonts for advanced, modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Global styles: Mobile-first, responsive design with new theme (white background, dark red accents, dark blue text linings) */
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background: #ffffff; /* White background for main theme */
-            color: #2c3e50; /* Dark blue for text to match linings */
-            transition: background 0.3s; /* Smooth transitions */
+            background: #ffffff;
+            color: #2c3e50;
+            transition: background 0.3s;
         }
-        .dark-mode { 
-            background: #333333; /* Dark gray for dark mode background */
-            color: #d3d3d3; /* Light gray for readability in dark mode */
-        } /* Dark mode adjusted for contrast with theme */
-
-        /* Header: Sticky, dark red background with dark blue text */
+        .dark-mode {
+            background: #333333;
+            color: #d3d3d3;
+        }
         header {
             position: sticky;
             top: 0;
-            background: #8b0000; /* Dark red fallback */
-            background-image: url('court.jpg'); /* background-image: url('https://photos.app.goo.gl/pNhe88WmScnPYTRg8'); */ /* background-image: url('https://images.unsplash.com/photo-1546519638-7e78a[...] */
-            background-size: cover; /* Full coverage */
-            background-position: center; /* Centered image */
-            background-repeat: no-repeat; /* No tiling */
+            background: #8b0000;
+            background-image: url('court.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
             padding: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            color: #ffffff; /* White text */
-            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5); /* Dark blue text lining */
-            position: relative; /* For overlay positioning */
-        } /* used Header h1 font was Wide Latin */
+            color: #ffffff;
+            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
+            position: relative;
+        }
         header h1 {
-            /* "Wide Latin" is not a Google font; will fallback to serif */
             font-family: 'Wide Latin', serif;
             letter-spacing: 2px;
             font-size: 2.2em;
         }
-        #hamburger { 
-            display: block; 
-            cursor: pointer; 
-            font-size: 24px; 
-            color: #ffffff; /* White for visibility on dark red */
-        } /* Mobile hamburger icon */
-        nav { display: none; } /* Hidden by default on mobile */
-        nav ul { 
-            list-style: none; 
-            padding: 0; 
-            display: flex; 
-            flex-direction: column; 
-            background: #8b0000; /* Dark red for nav menu */
-        } /* Column for mobile menu */
+        #hamburger {
+            display: block;
+            cursor: pointer;
+            font-size: 24px;
+            color: #ffffff;
+        }
+        nav { display: none; }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: #8b0000;
+        }
         nav ul li { margin: 10px; }
-        nav ul li a { 
-            color: #ffffff; /* White for nav links */
-            text-decoration: none; 
-            font-weight: bold; 
-            transition: color 0.3s; 
-            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5); /* Dark blue text lining */
-        } /* Hover animation */
-        nav ul li a:hover { color: #d3d3d3; } /* Light gray hover for contrast */
-
-        /* Sections: Hidden by default, styled with new theme */
-        section { 
-            display: none; 
-            padding: 20px; 
-            animation: fadeIn 0.5s; 
-            border: 1px solid #2c3e50; /* Dark blue border for section linings */
-        } /* Fade-in animation */
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } } /* Keyframe for smooth entry */
-
-        /* Cards for roster/gallery: Dark red background, dark blue borders */
-        .card { 
-            background: #8b0000; /* Dark red for cards */
-            border-radius: 10px; 
-            padding: 10px; 
-            margin: 10px; 
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
-            transition: transform 0.3s; 
-            border: 2px solid #2c3e50; /* Dark blue lining for cards */
-            color: #ffffff; /* White text for readability on dark red */
+        nav ul li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
         }
-        .card:hover { transform: scale(1.05); } /* Interactive touch feedback */
-        .grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); 
-            gap: 10px; 
-        } /* Responsive grid */
-
-        /* Tables for stats/schedule: Dark blue borders, white background */
-        table { 
-            width: 100%; 
-            border-collapse: collapse; 
-            overflow-x: auto; 
-            display: block; 
-            background: #ffffff; /* White table background */
-            border: 1px solid #2c3e50; /* Dark blue table border */
-        } /* Mobile scroll */
-        th, td { 
-            padding: 8px; 
-            text-align: left; 
-            border-bottom: 1px solid #2c3e50; /* Dark blue row borders */
-            color: #2c3e50; /* Dark blue text */
+        nav ul li a:hover { color: #d3d3d3; }
+        section {
+            display: none;
+            padding: 20px;
+            animation: fadeIn 0.5s;
+            border: 1px solid #2c3e50;
         }
-
-        /* Forms for admin: Dark red buttons, dark blue borders */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .card {
+            background: #8b0000;
+            border-radius: 10px;
+            padding: 10px;
+            margin: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+            border: 2px solid #2c3e50;
+            color: #ffffff;
+        }
+        .card:hover { transform: scale(1.05); }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            overflow-x: auto;
+            display: block;
+            background: #ffffff;
+            border: 1px solid #2c3e50;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #2c3e50;
+            color: #2c3e50;
+        }
         form { display: flex; flex-direction: column; }
-        input, textarea, button { 
-            margin: 5px 0; 
-            padding: 10px; 
-            border-radius: 5px; 
-            border: 1px solid #2c3e50; /* Dark blue input borders */
-            color: #2c3e50; /* Dark blue text */
+        input, textarea, button {
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #2c3e50;
+            color: #2c3e50;
         }
-        button { 
-            background: #8b0000; /* Dark red buttons */
-            color: #ffffff; /* White text on buttons */
-            cursor: pointer; 
-            transition: background 0.3s; 
-            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5); /* Dark blue text lining */
+        button {
+            background: #8b0000;
+            color: #ffffff;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
         }
-        button:hover { background: #a30000; } /* Slightly lighter red for hover */
-
-        /* Media queries for larger screens (though mobile-focused) */
+        button:hover { background: #a30000; }
         @media (min-width: 768px) {
             #hamburger { display: none; }
             nav { display: block; }
@@ -141,9 +126,8 @@
 </head>
 <body>
     <header>
-        <!-- Team logo and title for branding -->
         <h1>Willowdale Basketball</h1>
-        <div id="hamburger">&#9776;</div> <!-- Hamburger for mobile menu -->
+        <div id="hamburger">&#9776;</div>
         <nav id="nav-menu">
             <ul>
                 <li><a href="#" onclick="showSection('home')">Home</a></li>
@@ -152,103 +136,27 @@
                 <li><a href="#" onclick="showSection('stats')">Stats</a></li>
                 <li><a href="#" onclick="showSection('gallery')">Gallery</a></li>
                 <li><a href="#" onclick="showSection('admin')">Admin</a></li>
-                <li><button type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button></li> <!-- Theme toggle -->
+                <li><button type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button></li>
             </ul>
         </nav>
     </header>
-
-    <!-- Home Section: Team overview and news -->
-    <section id="home" style="display: block;">
-        <h2>Welcome to Our Team</h2>
-        <p>Latest News:</p>
-        <div id="news-feed"></div>
-    </section>
-
-    <!-- Roster Section: Player list -->
-    <section id="roster">
-        <h2>Team Roster</h2>
-        <input type="text" id="roster-search" placeholder="Search Player" oninput="filterRoster()">
-        <div id="roster-list" class="grid"></div>
-    </section>
-
-    <!-- Schedule Section: Game list -->
-    <section id="schedule">
-        <h2>Game Schedule</h2>
-        <table id="schedule-table">
-            <thead><tr><th>Date</th><th>Opponent</th><th>Location</th><th>Result</th></tr></thead>
-            <tbody></tbody>
-        </table>
-    </section>
-
-    <!-- Stats Section: Tables -->
-    <section id="stats">
-        <h2>Team Statistics</h2>
-        <table id="stats-table">
-            <thead><tr><th>Player</th><th>Points</th><th>Rebounds</th><th>Assists</th></tr></thead>
-            <tbody></tbody>
-        </table>
-    </section>
-
-    <!-- Gallery Section: Image grid -->
-    <section id="gallery">
-        <h2>Gallery</h2>
-        <div id="gallery-grid" class="grid"></div>
-    </section>
-
-    <!-- Admin Dashboard: Protected, for data upload -->
-    <section id="admin">
-        <h2>Admin Dashboard</h2>
-        <div id="admin-login">
-            <input type="password" id="admin-pass" placeholder="Admin Password">
-            <button type="button" onclick="loginAdmin()">Login</button>
-        </div>
-        <div id="admin-forms" style="display: none;">
-            <!-- Form to add news -->
-            <h3>Add News</h3>
-            <textarea id="news-text" placeholder="News content"></textarea>
-            <button type="button" onclick="addNews()">Add</button>
-            
-            <!-- Form to add player -->
-            <h3>Add Player</h3>
-            <input id="player-name" placeholder="Name">
-            <input id="player-pos" placeholder="Position">
-            <input id="player-bio" placeholder="Bio">
-            <input id="player-img" placeholder="Image URL">
-            <button type="button" onclick="addPlayer()">Add</button>
-            
-            <!-- Form to add game -->
-            <h3>Add Game</h3>
-            <input id="game-date" placeholder="Date (YYYY-MM-DD)">
-            <input id="game-opp" placeholder="Opponent">
-            <input id="game-loc" placeholder="Location">
-            <input id="game-res" placeholder="Result">
-            <button type="button" onclick="addGame()">Add</button>
-            
-            <!-- Form to add stats -->
-            <h3>Update Stats</h3>
-            <input id="stats-player" placeholder="Player Name">
-            <input id="stats-pts" placeholder="Points">
-            <input id="stats-reb" placeholder="Rebounds">
-            <input id="stats-ast" placeholder="Assists">
-            <button type="button" onclick="updateStats()">Update</button>
-            
-            <!-- Form to add gallery image -->
-            <h3>Add Image</h3>
-            <input id="gallery-img" placeholder="Image URL">
-            <button type="button" onclick="addImage()">Add</button>
-            
-            <button type="button" onclick="exportData()">Export Data (JSON)</button>
-        </div>
-    </section>
-
+    <!-- Main container for dynamic section loading -->
+    <div id="main-content"></div>
     <script type="module">
-        // Make sure the renderers modules exist in your project!
-        import { renderRosterSection } from './renderers/roster.js';
-        import { renderScheduleSection } from './renderers/schedule.js';
-        import { renderStatsSection } from './renderers/stats.js';
-        import { renderGallerySection } from './renderers/gallery.js';
-        import { renderNewsSection } from './renderers/news.js';
-    
+        // Utility to fetch and display section HTML
+        async function loadSection(section) {
+            try {
+                const res = await fetch(`sections/${section}.html`);
+                if (!res.ok) throw new Error("Section not found");
+                const html = await res.text();
+                document.getElementById('main-content').innerHTML = html;
+                // After inserting, call section-specific renderers if needed
+                callSectionRenderer(section);
+            } catch (e) {
+                document.getElementById('main-content').innerHTML = "<section><h2>Section not found</h2></section>";
+            }
+        }
+
         // Data storage: Arrays for each section, loaded from localStorage
         let news = JSON.parse(localStorage.getItem('news')) || [];
         let players = JSON.parse(localStorage.getItem('players')) || [];
@@ -257,15 +165,65 @@
         let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
         const adminPassword = 'admin123';
 
-        // Function: Show/hide sections for SPA navigation
-        // Description: Hides all sections and shows the selected one
-        window.showSection = function(id) {
-            document.querySelectorAll('section').forEach(sec => sec.style.display = 'none');
-            document.getElementById(id).style.display = 'block';
-            if (window.innerWidth < 768) { document.getElementById('nav-menu').style.display = 'none'; }
-            callSectionRenderer(id);
+        // Section renderers (replace with module imports if using modules)
+        function renderNewsSection(newsArr) {
+            const feed = document.getElementById('news-feed');
+            if (feed) {
+                feed.innerHTML = '';
+                newsArr.forEach(item => {
+                    let p = document.createElement('p');
+                    p.textContent = item;
+                    feed.appendChild(p);
+                });
+            }
         }
-    
+        function renderRosterSection(playersArr) {
+            const list = document.getElementById('roster-list');
+            if (list) {
+                list.innerHTML = '';
+                playersArr.forEach(player => {
+                    let card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<h3>${player.name}</h3><p>${player.pos}</p><img src="${player.img}" alt="${player.name}" style="width:100%;"><p>${player.bio}</p>
+                        <button type="button" onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')">Share Profile</button>`;
+                    list.appendChild(card);
+                });
+            }
+        }
+        function renderScheduleSection(gamesArr) {
+            const body = document.querySelector('#schedule-table tbody');
+            if (body) {
+                body.innerHTML = '';
+                gamesArr.forEach(game => {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `<td>${game.date}</td><td>${game.opp}</td><td>${game.loc}</td><td>${game.res}</td>`;
+                    body.appendChild(row);
+                });
+            }
+        }
+        function renderStatsSection(statsObj) {
+            const body = document.querySelector('#stats-table tbody');
+            if (body) {
+                body.innerHTML = '';
+                for (let player in statsObj) {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `<td>${player}</td><td>${statsObj[player].pts}</td><td>${statsObj[player].reb}</td><td>${statsObj[player].ast}</td>`;
+                    body.appendChild(row);
+                }
+            }
+        }
+        function renderGallerySection(galleryArr) {
+            const grid = document.getElementById('gallery-grid');
+            if (grid) {
+                grid.innerHTML = '';
+                galleryArr.forEach(img => {
+                    let card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `<img src="${img}" alt="Gallery Image" style="width:100%;">`;
+                    grid.appendChild(card);
+                });
+            }
+        }
         function callSectionRenderer(sectionId) {
             switch (sectionId) {
                 case 'home': renderNewsSection(news); break;
@@ -275,64 +233,19 @@
                 case 'gallery': renderGallerySection(gallery); break;
             }
         }
-        // Hamburger menu toggle for mobile
+        // SPA navigation: Show selected section
+        window.showSection = function(id) {
+            loadSection(id);
+            if (window.innerWidth < 768) {
+                document.getElementById('nav-menu').style.display = 'none';
+            }
+        };
+        // Hamburger menu toggle
         document.getElementById('hamburger').onclick = function() {
             let menu = document.getElementById('nav-menu');
             menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         };
-
-        // Refresh all dynamic content (not used on initial load)
-        function refreshContent() {
-            // News feed
-            let newsFeed = document.getElementById('news-feed');
-            newsFeed.innerHTML = '';
-            news.forEach(item => {
-                let p = document.createElement('p');
-                p.textContent = item;
-                newsFeed.appendChild(p);
-            });
-
-            // Roster
-            let rosterList = document.getElementById('roster-list');
-            rosterList.innerHTML = '';
-            players.forEach(player => {
-                let card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `<h3>${player.name}</h3><p>${player.pos}</p><img src="${player.img}" alt="${player.name}" style="width:100%;"><p>${player.bio}</p>
-                                  <button type="button" onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')">Share Profile</button>`;
-                rosterList.appendChild(card);
-            });
-
-            // Schedule
-            let scheduleBody = document.getElementById('schedule-table').querySelector('tbody');
-            scheduleBody.innerHTML = '';
-            games.forEach(game => {
-                let row = document.createElement('tr');
-                row.innerHTML = `<td>${game.date}</td><td>${game.opp}</td><td>${game.loc}</td><td>${game.res}</td>`;
-                scheduleBody.appendChild(row);
-            });
-
-            // Stats
-            let statsBody = document.getElementById('stats-table').querySelector('tbody');
-            statsBody.innerHTML = '';
-            for (let player in stats) {
-                let row = document.createElement('tr');
-                row.innerHTML = `<td>${player}</td><td>${stats[player].pts}</td><td>${stats[player].reb}</td><td>${stats[player].ast}</td>`;
-                statsBody.appendChild(row);
-            }
-
-            // Gallery
-            let galleryGrid = document.getElementById('gallery-grid');
-            galleryGrid.innerHTML = '';
-            gallery.forEach(img => {
-                let card = document.createElement('div');
-                card.className = 'card';
-                card.innerHTML = `<img src="${img}" alt="Gallery Image" style="width:100%;">`;
-                galleryGrid.appendChild(card);
-            });
-        }
-
-        // Filter roster by search
+        // Roster filter
         window.filterRoster = function() {
             let input = document.getElementById('roster-search').value.toLowerCase();
             let cards = document.querySelectorAll('#roster-list .card');
@@ -340,8 +253,7 @@
                 let name = card.querySelector('h3').textContent.toLowerCase();
                 card.style.display = name.includes(input) ? 'block' : 'none';
             });
-        }
-
+        };
         // Admin login
         window.loginAdmin = function() {
             let pass = document.getElementById('admin-pass').value;
@@ -351,19 +263,17 @@
             } else {
                 alert('Incorrect password');
             }
-        }
-
+        };
         // Add news
         window.addNews = function() {
             let text = document.getElementById('news-text').value;
             if (text) {
                 news.push(text);
                 localStorage.setItem('news', JSON.stringify(news));
-                refreshContent();
+                renderNewsSection(news);
                 document.getElementById('news-text').value = '';
             }
-        }
-
+        };
         // Add player
         window.addPlayer = function() {
             let name = document.getElementById('player-name').value;
@@ -373,14 +283,13 @@
             if (name && pos) {
                 players.push({name, pos, bio, img});
                 localStorage.setItem('players', JSON.stringify(players));
-                refreshContent();
+                renderRosterSection(players);
                 document.getElementById('player-name').value = '';
                 document.getElementById('player-pos').value = '';
                 document.getElementById('player-bio').value = '';
                 document.getElementById('player-img').value = '';
             }
-        }
-
+        };
         // Add game
         window.addGame = function() {
             let date = document.getElementById('game-date').value;
@@ -390,14 +299,13 @@
             if (date && opp) {
                 games.push({date, opp, loc, res});
                 localStorage.setItem('games', JSON.stringify(games));
-                refreshContent();
+                renderScheduleSection(games);
                 document.getElementById('game-date').value = '';
                 document.getElementById('game-opp').value = '';
                 document.getElementById('game-loc').value = '';
                 document.getElementById('game-res').value = '';
             }
-        }
-
+        };
         // Update stats
         window.updateStats = function() {
             let player = document.getElementById('stats-player').value;
@@ -407,25 +315,23 @@
             if (player) {
                 stats[player] = {pts, reb, ast};
                 localStorage.setItem('stats', JSON.stringify(stats));
-                refreshContent();
+                renderStatsSection(stats);
                 document.getElementById('stats-player').value = '';
                 document.getElementById('stats-pts').value = '';
                 document.getElementById('stats-reb').value = '';
                 document.getElementById('stats-ast').value = '';
             }
-        }
-
+        };
         // Add image to gallery
         window.addImage = function() {
             let img = document.getElementById('gallery-img').value;
             if (img) {
                 gallery.push(img);
                 localStorage.setItem('gallery', JSON.stringify(gallery));
-                refreshContent();
+                renderGallerySection(gallery);
                 document.getElementById('gallery-img').value = '';
             }
-        }
-
+        };
         // Export data as JSON
         window.exportData = function() {
             let data = {news, players, games, stats, gallery};
@@ -435,8 +341,7 @@
             a.href = url;
             a.download = 'team-data.json';
             a.click();
-        }
-
+        };
         // Share link
         window.shareLink = function(path) {
             let url = window.location.origin + path;
@@ -445,15 +350,15 @@
             } else {
                 alert('Share this link: ' + url);
             }
-        }
-
+        };
         // Toggle dark mode
         window.toggleDarkMode = function() {
             document.body.classList.toggle('dark-mode');
-        }
-
-        // Initial load
-        window.onload = function() { renderNewsSection(news); };
+        };
+        // Initial load: show Home section
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSection('home');
+        });
     </script>
 </body>
 </html>

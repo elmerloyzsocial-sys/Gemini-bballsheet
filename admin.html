@@ -1,0 +1,44 @@
+<section id="admin">
+    <h2>Admin Dashboard</h2>
+    <div id="admin-login">
+        <input type="password" id="admin-pass" placeholder="Admin Password">
+        <button type="button" onclick="loginAdmin()">Login</button>
+    </div>
+    <div id="admin-forms" style="display: none;">
+        <!-- Form to add news -->
+        <h3>Add News</h3>
+        <textarea id="news-text" placeholder="News content"></textarea>
+        <button type="button" onclick="addNews()">Add</button>
+        
+        <!-- Form to add player -->
+        <h3>Add Player</h3>
+        <input id="player-name" placeholder="Name">
+        <input id="player-pos" placeholder="Position">
+        <input id="player-bio" placeholder="Bio">
+        <input id="player-img" placeholder="Image URL">
+        <button type="button" onclick="addPlayer()">Add</button>
+        
+        <!-- Form to add game -->
+        <h3>Add Game</h3>
+        <input id="game-date" placeholder="Date (YYYY-MM-DD)">
+        <input id="game-opp" placeholder="Opponent">
+        <input id="game-loc" placeholder="Location">
+        <input id="game-res" placeholder="Result">
+        <button type="button" onclick="addGame()">Add</button>
+        
+        <!-- Form to add stats -->
+        <h3>Update Stats</h3>
+        <input id="stats-player" placeholder="Player Name">
+        <input id="stats-pts" placeholder="Points">
+        <input id="stats-reb" placeholder="Rebounds">
+        <input id="stats-ast" placeholder="Assists">
+        <button type="button" onclick="updateStats()">Update</button>
+        
+        <!-- Form to add gallery image -->
+        <h3>Add Image</h3>
+        <input id="gallery-img" placeholder="Image URL">
+        <button type="button" onclick="addImage()">Add</button>
+        
+        <button type="button" onclick="exportData()">Export Data (JSON)</button>
+    </div>
+</section>
