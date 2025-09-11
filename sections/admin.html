@@ -7,6 +7,18 @@
       <button onclick="loginAdmin()">Login</button>
     </div>
     <div id="admin-forms" style="display:none;">
+	
+		<!-- Add YouTube Video Links -->
+	  <fieldset>
+		<legend>Featured YouTube Videos</legend>
+		<form onsubmit="event.preventDefault(); addYouTubeVideo();">
+			<label>Paste YouTube Embed Link (e.g. https://www.youtube.com/embed/VideoID): 
+			<input type="url" id="youtube-url" required>
+			</label>
+			<button type="submit">Add/Replace Video</button>
+			<div style="font-size:0.93em;color:#888;">Only the latest 2 videos will show on the home page.</div>
+		</form>
+	  </fieldset>
 
       <!-- Roster Management -->
       <fieldset>
