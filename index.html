@@ -56,14 +56,18 @@
             background: #8b0000;
         }
         nav ul li { margin: 10px; }
-        nav ul li a {
+        nav ul li a, nav ul li button {
             color: #ffffff;
             text-decoration: none;
             font-weight: bold;
             transition: color 0.3s;
             text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
+            background: none;
+            border: none;
+            font-size: 1em;
+            cursor: pointer;
         }
-        nav ul li a:hover { color: #d3d3d3; }
+        nav ul li a:hover, nav ul li button:hover { color: #d3d3d3; }
         section {
             display: none;
             padding: 20px;
@@ -130,17 +134,16 @@
         <div id="hamburger">&#9776;</div>
         <nav id="nav-menu">
             <ul>
-                <li><a href="#" onclick="showSection('home')">Home</a></li>
-                <li><a href="#" onclick="showSection('roster')">Roster</a></li>
-                <li><a href="#" onclick="showSection('schedule')">Schedule</a></li>
-                <li><a href="#" onclick="showSection('stats')">Stats</a></li>
-                <li><a href="#" onclick="showSection('gallery')">Gallery</a></li>
-                <li><a href="#" onclick="showSection('admin')">Admin</a></li>
-                <li><button type="button" onclick="toggleDarkMode()">Toggle Dark Mode</button></li>
+                <li><a href="#home" data-section="home">Home</a></li>
+                <li><a href="#roster" data-section="roster">Roster</a></li>
+                <li><a href="#schedule" data-section="schedule">Schedule</a></li>
+                <li><a href="#stats" data-section="stats">Stats</a></li>
+                <li><a href="#gallery" data-section="gallery">Gallery</a></li>
+                <li><a href="#admin" data-section="admin">Admin</a></li>
+                <li><button type="button" id="dark-mode-toggle">Toggle Dark Mode</button></li>
             </ul>
         </nav>
     </header>
-    <!-- Main container for dynamic section loading -->
     <div id="main-content"></div>
     <script type="module">
         // Utility to fetch and display section HTML
@@ -150,7 +153,6 @@
                 if (!res.ok) throw new Error("Section not found");
                 const html = await res.text();
                 document.getElementById('main-content').innerHTML = html;
-                // After inserting, call section-specific renderers if needed
                 callSectionRenderer(section);
             } catch (e) {
                 document.getElementById('main-content').innerHTML = "<section><h2>Section not found</h2></section>";
@@ -165,7 +167,6 @@
         let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
         const adminPassword = 'admin123';
 
-        // Section renderers (replace with module imports if using modules)
         function renderNewsSection(newsArr) {
             const feed = document.getElementById('news-feed');
             if (feed) {
@@ -233,18 +234,43 @@
                 case 'gallery': renderGallerySection(gallery); break;
             }
         }
-        // SPA navigation: Show selected section
-        window.showSection = function(id) {
-            loadSection(id);
-            if (window.innerWidth < 768) {
-                document.getElementById('nav-menu').style.display = 'none';
-            }
-        };
+
+        // SPA navigation: Show selected section and update hash
+        function showSection(id) {
+            window.location.hash = '#' + id;
+        }
+
+        // Listen to hash changes to update the section
+        function onHashChange() {
+            let section = (window.location.hash || '#home').replace(/^#/, '');
+            loadSection(section);
+        }
+
+        window.addEventListener('hashchange', onHashChange);
+
         // Hamburger menu toggle
         document.getElementById('hamburger').onclick = function() {
             let menu = document.getElementById('nav-menu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            menu.style.display = (menu.style.display === 'block' ? 'none' : 'block');
         };
+
+        // Navigation link click handling
+        document.querySelectorAll('#nav-menu ul li a[data-section]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                showSection(this.getAttribute('data-section'));
+                // Hide nav on mobile after click
+                if (window.innerWidth < 768) {
+                    document.getElementById('nav-menu').style.display = 'none';
+                }
+            });
+        });
+
+        // Dark mode toggle
+        document.getElementById('dark-mode-toggle').onclick = function() {
+            document.body.classList.toggle('dark-mode');
+        };
+
         // Roster filter
         window.filterRoster = function() {
             let input = document.getElementById('roster-search').value.toLowerCase();
@@ -351,13 +377,10 @@
                 alert('Share this link: ' + url);
             }
         };
-        // Toggle dark mode
-        window.toggleDarkMode = function() {
-            document.body.classList.toggle('dark-mode');
-        };
-        // Initial load: show Home section
+
+        // Load initial section based on hash, default to home
         window.addEventListener('DOMContentLoaded', () => {
-            loadSection('home');
+            onHashChange();
         });
     </script>
 </body>
