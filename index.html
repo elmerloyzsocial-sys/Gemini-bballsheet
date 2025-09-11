@@ -34,7 +34,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.5);
             color: #ffffff;
             text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
-            position: relative;
         }
         header h1 {
             font-family: 'Wide Latin', serif;
@@ -51,6 +50,7 @@
         nav ul {
             list-style: none;
             padding: 0;
+            margin: 0;
             display: flex;
             flex-direction: column;
             background: #8b0000;
@@ -125,6 +125,7 @@
             #hamburger { display: none; }
             nav { display: block; }
             nav ul { flex-direction: row; }
+            nav ul li { margin: 0 10px; }
         }
     </style>
 </head>
@@ -146,7 +147,33 @@
     </header>
     <div id="main-content"></div>
     <script type="module">
-        // Utility to fetch and display section HTML
+    document.addEventListener('DOMContentLoaded', () => {
+        // Hamburger menu
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        hamburger.onclick = function() {
+            navMenu.style.display = (navMenu.style.display === 'block' ? 'none' : 'block');
+        };
+
+        // Navigation links
+        document.querySelectorAll('#nav-menu ul li a[data-section]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                let section = this.getAttribute('data-section');
+                window.location.hash = '#' + section;
+                // Hide nav on mobile after click
+                if (window.innerWidth < 768) {
+                    navMenu.style.display = 'none';
+                }
+            });
+        });
+
+        // Dark mode toggle
+        document.getElementById('dark-mode-toggle').onclick = function() {
+            document.body.classList.toggle('dark-mode');
+        };
+
+        // SPA section loader
         async function loadSection(section) {
             try {
                 const res = await fetch(`sections/${section}.html`);
@@ -159,7 +186,7 @@
             }
         }
 
-        // Data storage: Arrays for each section, loaded from localStorage
+        // Data storage from localStorage
         let news = JSON.parse(localStorage.getItem('news')) || [];
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let games = JSON.parse(localStorage.getItem('games')) || [];
@@ -167,6 +194,7 @@
         let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
         const adminPassword = 'admin123';
 
+        // Section renderers
         function renderNewsSection(newsArr) {
             const feed = document.getElementById('news-feed');
             if (feed) {
@@ -235,43 +263,17 @@
             }
         }
 
-        // SPA navigation: Show selected section and update hash
-        function showSection(id) {
-            window.location.hash = '#' + id;
-        }
-
-        // Listen to hash changes to update the section
+        // SPA hash navigation
         function onHashChange() {
             let section = (window.location.hash || '#home').replace(/^#/, '');
             loadSection(section);
         }
-
         window.addEventListener('hashchange', onHashChange);
 
-        // Hamburger menu toggle
-        document.getElementById('hamburger').onclick = function() {
-            let menu = document.getElementById('nav-menu');
-            menu.style.display = (menu.style.display === 'block' ? 'none' : 'block');
-        };
+        // Initial load
+        onHashChange();
 
-        // Navigation link click handling
-        document.querySelectorAll('#nav-menu ul li a[data-section]').forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                showSection(this.getAttribute('data-section'));
-                // Hide nav on mobile after click
-                if (window.innerWidth < 768) {
-                    document.getElementById('nav-menu').style.display = 'none';
-                }
-            });
-        });
-
-        // Dark mode toggle
-        document.getElementById('dark-mode-toggle').onclick = function() {
-            document.body.classList.toggle('dark-mode');
-        };
-
-        // Roster filter
+        // Other exposed functions
         window.filterRoster = function() {
             let input = document.getElementById('roster-search').value.toLowerCase();
             let cards = document.querySelectorAll('#roster-list .card');
@@ -280,7 +282,6 @@
                 card.style.display = name.includes(input) ? 'block' : 'none';
             });
         };
-        // Admin login
         window.loginAdmin = function() {
             let pass = document.getElementById('admin-pass').value;
             if (pass === adminPassword) {
@@ -290,7 +291,6 @@
                 alert('Incorrect password');
             }
         };
-        // Add news
         window.addNews = function() {
             let text = document.getElementById('news-text').value;
             if (text) {
@@ -300,7 +300,6 @@
                 document.getElementById('news-text').value = '';
             }
         };
-        // Add player
         window.addPlayer = function() {
             let name = document.getElementById('player-name').value;
             let pos = document.getElementById('player-pos').value;
@@ -316,7 +315,6 @@
                 document.getElementById('player-img').value = '';
             }
         };
-        // Add game
         window.addGame = function() {
             let date = document.getElementById('game-date').value;
             let opp = document.getElementById('game-opp').value;
@@ -332,7 +330,6 @@
                 document.getElementById('game-res').value = '';
             }
         };
-        // Update stats
         window.updateStats = function() {
             let player = document.getElementById('stats-player').value;
             let pts = document.getElementById('stats-pts').value;
@@ -348,7 +345,6 @@
                 document.getElementById('stats-ast').value = '';
             }
         };
-        // Add image to gallery
         window.addImage = function() {
             let img = document.getElementById('gallery-img').value;
             if (img) {
@@ -358,7 +354,6 @@
                 document.getElementById('gallery-img').value = '';
             }
         };
-        // Export data as JSON
         window.exportData = function() {
             let data = {news, players, games, stats, gallery};
             let blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
@@ -368,7 +363,6 @@
             a.download = 'team-data.json';
             a.click();
         };
-        // Share link
         window.shareLink = function(path) {
             let url = window.location.origin + path;
             if (navigator.share) {
@@ -377,11 +371,7 @@
                 alert('Share this link: ' + url);
             }
         };
-
-        // Load initial section based on hash, default to home
-        window.addEventListener('DOMContentLoaded', () => {
-            onHashChange();
-        });
+    });
     </script>
 </body>
 </html>
