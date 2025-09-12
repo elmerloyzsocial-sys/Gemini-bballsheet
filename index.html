@@ -257,6 +257,104 @@
             border-top: 2px dashed var(--primary);
             margin: 14px 0;
         }
+        /* MOBILE STYLES */
+        @media (max-width: 900px) {
+            aside.instructions-80s { margin-left: 0; border-left: none; padding-left: 0; }
+            div[style*="display: flex"] { flex-wrap: wrap; }
+            .card { margin-right: 0; }
+        }
+        @media (max-width: 600px) {
+            aside.instructions-80s { margin-top: 18px; }
+            .card { padding: 10px; }
+        }
+        @media (max-width: 480px) {
+            header h1 { font-size: 2em; }
+            .card { padding: 8px; }
+            .youtube-video { min-width: 140px; max-width: 99vw; }
+            .youtube-container { flex-direction: column; gap: 18px; }
+            .grid { grid-template-columns: 1fr; }
+            table { font-size: 0.95em; }
+        }
+        input, textarea, button {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 320px;
+            margin-bottom: 6px;
+        }
+        fieldset { border-radius: 8px; margin-bottom: 12px; }
+        legend { font-size:1.15em; }
+        /* DARK MODE */
+        body.dark-mode {
+            background: linear-gradient(135deg, #222 0%, #2c2c2c 100%);
+            color: #FFD700;
+        }
+        body.dark-mode header {
+            background: linear-gradient(90deg, #222, #444, #7C2AE8);
+            color: #FFD700;
+            text-shadow: 2px 2px 0 #000, 0 0 8px #7C2AE8;
+        }
+        body.dark-mode nav ul {
+            background: linear-gradient(90deg, #333 0%, #7C2AE8 100%);
+            box-shadow: 0 2px 16px #222;
+        }
+        body.dark-mode nav ul li a,
+        body.dark-mode nav ul li button {
+            color: #FFD700;
+            background: #444;
+            border-color: #FFD700;
+            box-shadow: 0 0 8px #7C2AE8;
+        }
+        body.dark-mode nav ul li a:hover,
+        body.dark-mode nav ul li button:hover {
+            color: #7C2AE8;
+            background: #FFD700;
+            box-shadow: 0 0 16px #FFD700;
+        }
+        body.dark-mode .card {
+            background: linear-gradient(135deg, #2c2c2c 0%, #222 100%);
+            color: #FFD700;
+            border-color: #7C2AE8;
+            box-shadow: 0 0 24px #FFD700, 0 4px 24px #222;
+        }
+        body.dark-mode th {
+            background: #222;
+            color: #FFD700;
+            border-bottom: 3px solid #FFD700;
+        }
+        body.dark-mode td {
+            color: #FFD700;
+        }
+        body.dark-mode input,
+        body.dark-mode textarea,
+        body.dark-mode button {
+            background: #333;
+            color: #FFD700;
+            border-color: #7C2AE8;
+        }
+        body.dark-mode .btn {
+            background: #7C2AE8;
+            color: #FFD700;
+            border-color: #FFD700;
+        }
+        body.dark-mode .btn:hover {
+            background: #FFD700;
+            color: #7C2AE8;
+            box-shadow: 0 0 14px #7C2AE8;
+        }
+        body.dark-mode .youtube-video {
+            background: #222;
+            border-color: #FFD700;
+            box-shadow: 0 0 24px #FFD700;
+        }
+        body.dark-mode .schedule-table-container {
+            background: linear-gradient(90deg, #222 0%, #7C2AE8 100%);
+            box-shadow: 0 2px 12px #FFD700;
+        }
+        body.dark-mode .instructions-80s {
+            background: linear-gradient(135deg, #222 0%, #7C2AE8 80%);
+            color: #FFD700;
+            box-shadow: 0 0 18px #FFD700;
+        }
     </style>
 </head>
 <body>
@@ -301,7 +399,7 @@
             });
         });
 
-        // Dark mode toggle
+        // Dark mode toggle (now works!)
         document.getElementById('dark-mode-toggle').onclick = function() {
             document.body.classList.toggle('dark-mode');
         };
@@ -523,6 +621,7 @@
             }
         };
 
+        // Interactive Home Section
         function renderHomeSection() {
             let videos = JSON.parse(localStorage.getItem('youtubeVideos')) || youtubeVideos;
             if (!Array.isArray(videos)) videos = [];
@@ -582,12 +681,14 @@
             document.getElementById('main-content').innerHTML = homeHtml;
         }
 
+        // SPA hash navigation
         function onHashChange() {
             let section = (window.location.hash || '#home').replace(/^#/, '');
             loadSection(section);
         }
         window.addEventListener('hashchange', onHashChange);
 
+        // Initial load
         onHashChange();
     });
     </script>
