@@ -2,13 +2,39 @@
   <div class="card">
     <h2><span class="fa-solid fa-users icon-80s"></span> Roster</h2>
     <div style="margin-bottom:10px;">
-      <input type="text" id="roster-search" placeholder="Search roster..." oninput="filterRoster()" style="width:60%;max-width:300px;">
+      <input type="text" id="roster-search" placeholder="Search roster..." oninput="filterRoster()" style="width:80%;max-width:320px;">
       <span class="fa-solid fa-search icon-80s"></span>
     </div>
     <div id="roster-list" class="grid"></div>
-    <div style="text-align:center;">
-      <img src="https://cdn.pixabay.com/photo/2016/04/01/09/29/basketball-1305910_1280.png" alt="80s Player" style="max-width:140px;margin:20px;">
-      <img src="https://cdn.pixabay.com/photo/2016/04/01/10/08/basketball-1306066_1280.png" alt="Sneaker" style="max-width:90px;margin:10px;">
+    <div class="roster-imgs80s">
+      <img src="https://cdn.pixabay.com/photo/2016/04/01/09/29/basketball-1305910_1280.png" alt="80s Player">
+      <img src="https://cdn.pixabay.com/photo/2016/04/01/10/08/basketball-1306066_1280.png" alt="Sneaker">
     </div>
   </div>
+  <style>
+    .roster-imgs80s {
+      text-align: center;
+      margin-top: 20px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .roster-imgs80s img {
+      max-width: 120px;
+      width: 30vw;
+      margin: 8px;
+    }
+    @media (max-width: 480px) {
+      .roster-imgs80s img { max-width: 75px; }
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </section>

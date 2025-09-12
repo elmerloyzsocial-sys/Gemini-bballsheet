@@ -4,11 +4,10 @@
     <div class="card">
       <h2><span class="fa-solid fa-user-lock icon-80s"></span> Admin Section</h2>
       <div id="admin-login">
-        <input type="password" id="admin-pass" placeholder="Enter admin password">
+        <input type="password" id="admin-pass" placeholder="Enter admin password" style="max-width: 240px; width:80%;">
         <button onclick="loginAdmin()" class="btn"><span class="fa-solid fa-right-to-bracket icon-80s"></span>Login</button>
       </div>
       <div id="admin-forms" style="display:none;">
-
         <fieldset style="margin-bottom:16px;">
           <legend style="font-family:'Bangers',cursive;color:var(--accent);font-size:1.2em;">
             <span class="fa-brands fa-youtube icon-80s"></span>
@@ -17,14 +16,12 @@
           <form onsubmit="event.preventDefault(); addYouTubeVideo();">
             <label>
               Paste YouTube Embed Link (e.g. https://www.youtube.com/embed/VideoID): 
-              <input type="url" id="youtube-url" required>
+              <input type="url" id="youtube-url" required style="max-width:240px;width:80%;">
             </label>
             <button type="submit" class="btn">Add/Replace Video</button>
             <div style="font-size:0.93em;color:#888;">Only the latest 2 videos will show on the home page.</div>
           </form>
         </fieldset>
-
-        <!-- Roster Management -->
         <fieldset>
           <legend><span class="fa-solid fa-users icon-80s"></span> Edit Roster</legend>
           <form onsubmit="event.preventDefault(); addPlayer();">
@@ -39,8 +36,6 @@
             <ul id="admin-roster-list"></ul>
           </div>
         </fieldset>
-
-        <!-- Schedule Management -->
         <fieldset>
           <legend><span class="fa-solid fa-calendar-days icon-80s"></span> Edit Schedule</legend>
           <form onsubmit="event.preventDefault(); addGame();">
@@ -55,8 +50,6 @@
             <ul id="admin-schedule-list"></ul>
           </div>
         </fieldset>
-
-        <!-- Stats Management -->
         <fieldset>
           <legend><span class="fa-solid fa-chart-bar icon-80s"></span> Edit Stats</legend>
           <form onsubmit="event.preventDefault(); updateStats();">
@@ -71,8 +64,6 @@
             <ul id="admin-stats-list"></ul>
           </div>
         </fieldset>
-
-        <!-- Gallery Management -->
         <fieldset>
           <legend><span class="fa-solid fa-image icon-80s"></span> Manage Gallery</legend>
           <form onsubmit="event.preventDefault(); addImage();">
@@ -85,23 +76,20 @@
             <div id="admin-gallery-date-groups"></div>
           </div>
         </fieldset>
-
         <button onclick="exportData()" class="btn"><span class="fa-solid fa-download icon-80s"></span>Export Data as JSON</button>
       </div>
     </div>
   </div>
-
-  <!-- Instructions Panel (right side) -->
   <aside class="instructions-80s">
     <h3><span class="fa-solid fa-star icon-80s"></span>80's Admin Page Instructions</h3>
     <ul>
       <li><strong>Login:</strong> Enter the admin password to unlock editing features.</li>
-      <li><strong>Edit Roster:</strong> Add new players with their name, position, bio, and image URL. Remove players from the roster using the "Delete" button.</li>
+      <li><strong>Edit Roster:</strong> Add new players with their name, position, bio, and image URL. Remove players using "Delete".</li>
       <li><strong>Edit Schedule:</strong> Add or delete games. Fill in the date, opponent, location, and result fields.</li>
-      <li><strong>Edit Stats:</strong> Update player stats by entering the player's name and new numbers for points, rebounds, and assists. Delete a player's stats if needed.</li>
-      <li><strong>Manage Gallery:</strong> Upload images by providing a date and a full image URL. Images are grouped by upload date and are visible to all visitors. You can delete any image.</li>
-      <li><strong>Export Data:</strong> Download all team data as a JSON file for backup or migration.</li>
-      <li><strong>Update Featured Videos:</strong> In the <em>Featured YouTube Videos</em> section, paste a new YouTube embed link and click "Add/Replace Video." Only the latest two videos will be shown on the home page.<br>
+      <li><strong>Edit Stats:</strong> Update player stats. Delete a player's stats if needed.</li>
+      <li><strong>Manage Gallery:</strong> Upload images with date and URL. Images are grouped by upload date and visible to visitors. You can delete any image.</li>
+      <li><strong>Export Data:</strong> Download all team data as a JSON file.</li>
+      <li><strong>Update Featured Videos:</strong> Paste a new YouTube embed link and click "Add/Replace Video." Only the latest two videos will show on the home page.<br>
         <span style="font-size:0.95em;color:#888;">Use the admin form—no code edit needed!</span>
       </li>
     </ul>
@@ -111,13 +99,32 @@
       <li>Use full image/video embed URLs.</li>
       <li>Changes are instant and persist for future visits.</li>
       <li>Gallery images and featured videos are shown to all visitors.</li>
-      <li>If you make a mistake, use the "Delete" buttons to remove entries.</li>
+      <li>If you make a mistake, use "Delete" buttons to remove entries.</li>
       <li>Refresh the page if you do not see updates right away.</li>
     </ul>
     <p style="font-size:0.95em;color:#888;">For help, contact your website administrator.</p>
     <div style="text-align:center;margin-top:18px;">
-      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Admin" style="max-width:90px;">
-      <img src="https://cdn.pixabay.com/photo/2016/04/01/10/08/basketball-1306066_1280.png" alt="80s Sneaker" style="max-width:70px;">
+      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Admin" style="max-width:90px;width:22vw;">
+      <img src="https://cdn.pixabay.com/photo/2016/04/01/10/08/basketball-1306066_1280.png" alt="80s Sneaker" style="max-width:70px;width:18vw;">
     </div>
   </aside>
+  <style>
+    @media (max-width: 900px) {
+      .instructions-80s { margin-left: 0; border-left: none; padding-left: 0; }
+      div[style*="display: flex"] { flex-wrap: wrap; }
+      .card { margin-right: 0; }
+    }
+    @media (max-width: 600px) {
+      .instructions-80s { margin-top: 18px; }
+      .card { padding: 10px; }
+    }
+    input, textarea, button {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 320px;
+      margin-bottom: 6px;
+    }
+    fieldset { border-radius: 8px; margin-bottom: 12px; }
+    legend { font-size:1.15em; }
+  </style>
 </div>

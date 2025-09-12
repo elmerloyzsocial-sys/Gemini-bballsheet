@@ -1,7 +1,7 @@
 <section>
   <div class="card">
     <h2><span class="fa-solid fa-calendar-days icon-80s"></span> Game Schedule</h2>
-    <div class="schedule-table-container">
+    <div class="schedule-table-container" style="overflow-x:auto;">
       <table id="schedule-table">
         <thead>
           <tr>
@@ -16,8 +16,30 @@
         </tbody>
       </table>
     </div>
-    <div style="text-align:center;">
-      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Scoreboard" style="max-width:110px;margin:12px;">
+    <div class="schedule-imgs80s">
+      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Scoreboard">
     </div>
   </div>
+  <style>
+    .schedule-imgs80s {
+      text-align: center;
+      margin: 12px 0;
+    }
+    .schedule-imgs80s img {
+      max-width: 110px;
+      width: 30vw;
+      margin: 0 8px;
+    }
+    @media (max-width: 480px) {
+      .schedule-imgs80s img { max-width: 70px; }
+      table { font-size: 0.95em; }
+    }
+    table {
+      width: 100%;
+      min-width: 320px;
+      overflow-x: auto;
+      display: block;
+    }
+    th, td { word-break: break-word; }
+  </style>
 </section>

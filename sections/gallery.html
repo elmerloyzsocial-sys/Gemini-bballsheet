@@ -1,10 +1,36 @@
 <section>
   <div class="card">
     <h2><span class="fa-solid fa-image icon-80s"></span> Gallery</h2>
-    <div id="gallery-grid" class="grid"></div>
-    <div style="text-align:center;">
-      <img src="https://cdn.pixabay.com/photo/2013/07/12/15/46/basketball-150997_1280.png" alt="80s Gallery Ball" style="max-width:100px;margin:14px;">
-      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Gallery" style="max-width:70px;margin:8px;">
+    <div id="gallery-grid" class="gallery-grid80s"></div>
+    <div class="gallery-imgs80s">
+      <img src="https://cdn.pixabay.com/photo/2013/07/12/15/46/basketball-150997_1280.png" alt="80s Gallery Ball">
+      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Gallery">
     </div>
   </div>
+  <style>
+    .gallery-imgs80s {
+      text-align: center;
+      margin: 14px 0 4px 0;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .gallery-imgs80s img {
+      max-width: 90px;
+      width: 26vw;
+      margin: 0 8px;
+    }
+    @media (max-width: 480px) {
+      .gallery-imgs80s img { max-width: 55px; }
+    }
+    .gallery-grid80s {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+    }
+    @media (max-width: 600px) {
+      .gallery-grid80s { grid-template-columns: 1fr; }
+    }
+  </style>
 </section>
