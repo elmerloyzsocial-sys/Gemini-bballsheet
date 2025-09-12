@@ -3,161 +3,281 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Basketball Team Organization</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Willowdale Basketball - 80's Edition</title>
+    <!-- 80's fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bangers&family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- 80's basketball icon CDN (Font Awesome 6) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        :root {
+            --primary: #FF8200;
+            --secondary: #00CFFF;
+            --accent: #FF2D6F;
+            --bg-dark: #15043b;
+            --gold: #FFD700;
+            --purple: #7C2AE8;
+            --white: #FFFFFF;
+            --black: #000000;
+        }
         body {
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Roboto', Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: #ffffff;
-            color: #2c3e50;
-            transition: background 0.3s;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--black);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
         }
-        .dark-mode {
-            background: #333333;
-            color: #d3d3d3;
+        body::before {
+            content: "";
+            position: fixed;
+            left: 0; top: 0;
+            width: 100vw; height: 100vh;
+            background: url('https://www.transparenttextures.com/patterns/halftone.png') repeat;
+            opacity: 0.18;
+            pointer-events: none;
+            z-index: 0;
         }
         header {
+            background: linear-gradient(90deg, var(--purple), var(--primary), var(--accent));
+            color: var(--gold);
+            text-shadow: 3px 3px 0 var(--black), 0 0 8px var(--accent);
+            font-family: 'Bungee', 'Bangers', 'Permanent Marker', cursive;
+            padding: 20px 0 14px 0;
+            border-bottom: 5px solid var(--gold);
+            box-shadow: 0 8px 32px 0 var(--gold);
             position: sticky;
             top: 0;
-            background: #8b0000;
-            background-image: url('court.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            color: #ffffff;
-            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
         }
         header h1 {
-            font-family: 'Wide Latin', serif;
-            letter-spacing: 2px;
-            font-size: 2.2em;
+            font-size: 3em;
+            letter-spacing: 4px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        header h1 .fa-basketball {
+            margin-right: 16px;
+            color: var(--accent);
+            font-size: 1.2em;
+            text-shadow: 0 0 12px var(--primary);
         }
         #hamburger {
             display: block;
             cursor: pointer;
-            font-size: 24px;
-            color: #ffffff;
+            font-size: 2em;
+            color: var(--gold);
+            background: var(--accent);
+            border-radius: 8px;
+            padding: 0 12px;
+            margin-left: 12px;
+            box-shadow: 0 2px 8px var(--primary);
         }
-        nav { display: none; }
+        nav {
+            display: none;
+        }
         nav ul {
             list-style: none;
             padding: 0;
             margin: 0;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--secondary) 100%);
+            border-radius: 0 0 24px 24px;
+            box-shadow: 0 2px 16px var(--black);
             display: flex;
             flex-direction: column;
-            background: #8b0000;
         }
-        nav ul li { margin: 10px; }
+        nav ul li {
+            margin: 18px 0;
+            text-align: center;
+        }
         nav ul li a, nav ul li button {
-            color: #ffffff;
+            font-family: 'Bangers','Permanent Marker', cursive;
+            color: var(--gold);
+            background: var(--purple);
+            border: 3px solid var(--accent);
             text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-            text-shadow: 1px 1px 1px rgba(44, 62, 80, 0.5);
-            background: none;
-            border: none;
-            font-size: 1em;
-            cursor: pointer;
+            font-size: 1.15em;
+            padding: 12px 32px;
+            border-radius: 12px;
+            box-shadow: 0 0 12px var(--accent);
+            margin: 0 8px;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
         }
-        nav ul li a:hover, nav ul li button:hover { color: #d3d3d3; }
-        section {
-            display: none;
-            padding: 20px;
-            animation: fadeIn 0.5s;
-            border: 1px solid #2c3e50;
-        }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .card {
-            background: #8b0000;
-            border-radius: 10px;
-            padding: 10px;
-            margin: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-            transition: transform 0.3s;
-            border: 2px solid #2c3e50;
-            color: #ffffff;
-        }
-        .card:hover { transform: scale(1.05); }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-        }
-        .youtube-container {
-            display: flex;
-            flex-direction: row;
-            gap: 20px;
-            margin: 20px 0;
-            justify-content: center;
-        }
-        .youtube-video {
-            flex: 1 1 300px;
-            max-width: 500px;
-            min-width: 280px;
-            background: #000;
-            border-radius: 10px;
-            padding: 8px;
-        }
-        .schedule-table-container {
-            margin: 30px 0 10px 0;
-            background: #fafaff;
-            border-radius: 8px;
-            padding: 12px;
-            box-shadow: 0 2px 8px rgba(44,62,80,0.06);
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            overflow-x: auto;
-            display: block;
-            background: #ffffff;
-            border: 1px solid #2c3e50;
-        }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #2c3e50;
-            color: #2c3e50;
-        }
-        th {
-            background: #eee;
+        nav ul li a:hover, nav ul li button:hover {
+            color: var(--white);
+            background: var(--accent);
+            box-shadow: 0 0 24px var(--gold);
         }
         @media (min-width: 768px) {
             #hamburger { display: none; }
             nav { display: block; }
-            nav ul { flex-direction: row; }
-            nav ul li { margin: 0 10px; }
-            .youtube-container { flex-direction: row; }
+            nav ul { flex-direction: row; justify-content: center; }
+            nav ul li { margin: 0 12px; }
         }
-        @media (max-width: 767px) {
-            .youtube-container { flex-direction: column; }
+        /* Neon Card Style */
+        .card {
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+            border-radius: 16px;
+            box-shadow: 0 0 24px var(--accent), 0 4px 24px var(--black);
+            border: 4px solid var(--gold);
+            color: var(--black);
+            font-family: 'Bangers', cursive;
+            padding: 20px;
+            margin: 18px 0;
+        }
+        .card h3 { color: var(--accent); text-shadow: 2px 2px 0 var(--gold); }
+        .card img { border-radius: 12px; border: 2px solid var(--accent); box-shadow: 0 0 16px var(--primary); }
+
+        /* YouTube container */
+        .youtube-container {
+            display: flex;
+            flex-direction: row;
+            gap: 24px;
+            margin: 28px 0;
+            justify-content: center;
+        }
+        .youtube-video {
+            flex: 1 1 320px;
+            max-width: 480px;
+            min-width: 220px;
+            background: var(--black);
+            border-radius: 16px;
+            padding: 10px;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 24px var(--secondary);
+        }
+        .youtube-video div {
+            text-align: center;
+            color: var(--gold);
+            font-family: 'Bangers', cursive;
+            margin-top: 6px;
+        }
+        /* Schedule Table */
+        .schedule-table-container {
+            margin: 34px 0 10px 0;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 2px 12px var(--accent);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 12px var(--accent);
+            margin-top: 8px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 2px dashed var(--primary);
+            color: var(--black);
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 1.05em;
+        }
+        th {
+            background: var(--purple);
+            color: var(--gold);
+            font-family: 'Bungee','Bangers',cursive;
+            border-bottom: 3px solid var(--gold);
+        }
+        tr.past-game { background: #ffe8e8; }
+        tr.future-game { background: #e8f5ff; }
+        /* Inputs */
+        input, textarea, button {
+            font-family: 'Roboto', Arial, sans-serif;
+            font-size: 1em;
+            margin: 8px 0;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--accent);
+            color: var(--black);
+            background: var(--white);
+            box-shadow: 0 0 8px var(--primary);
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+        button, .btn {
+            font-family: 'Bangers', cursive;
+            background: var(--primary);
+            color: var(--white);
+            border: 3px solid var(--accent);
+            cursor: pointer;
+            text-shadow: 1px 1px 0 var(--black);
+        }
+        button:hover, .btn:hover {
+            background: var(--accent);
+            color: var(--gold);
+            box-shadow: 0 0 14px var(--gold);
+        }
+        /* Gallery grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 18px;
+        }
+        /* 80's icon art */
+        .icon-80s {
+            font-size: 2.2em;
+            color: var(--accent);
+            text-shadow: 2px 2px 0 var(--gold), 0 0 14px var(--primary);
+            margin-right: 8px;
+        }
+        /* 80's admin instructions */
+        aside.instructions-80s {
+            flex: 1 1 320px;
+            min-width: 270px;
+            margin-left: 32px;
+            border-left: 4px dotted var(--accent);
+            padding-left: 18px;
+            background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 80%);
+            color: var(--black);
+            font-family: 'Permanent Marker', 'Bangers', cursive;
+            box-shadow: 0 0 18px var(--purple);
+        }
+        aside.instructions-80s h3 {
+            color: var(--gold);
+            font-family: 'Bungee', cursive;
+            text-shadow: 2px 2px 0 var(--accent);
+        }
+        aside.instructions-80s ul {
+            margin-left: 0;
+            padding-left: 16px;
+        }
+        aside.instructions-80s li {
+            margin: 10px 0;
+            font-size: 1.1em;
+        }
+        aside.instructions-80s hr {
+            border: none;
+            border-top: 2px dashed var(--primary);
+            margin: 14px 0;
         }
     </style>
 </head>
 <body>
     <header>
-        <h1>Willowdale Basketball</h1>
-        <div id="hamburger">&#9776;</div>
-        <nav id="nav-menu">
-            <ul>
-                <li><a href="#home" data-section="home">Home</a></li>
-                <li><a href="#roster" data-section="roster">Roster</a></li>
-                <li><a href="#schedule" data-section="schedule">Schedule</a></li>
-                <li><a href="#stats" data-section="stats">Stats</a></li>
-                <li><a href="#gallery" data-section="gallery">Gallery</a></li>
-                <li><a href="#admin" data-section="admin">Admin</a></li>
-                <li><button type="button" id="dark-mode-toggle">Toggle Dark Mode</button></li>
-            </ul>
-        </nav>
+        <h1>
+            <span class="fa-solid fa-basketball icon-80s"></span>
+            Willowdale Basketball
+        </h1>
     </header>
+    <div id="hamburger"><i class="fa-solid fa-bars"></i></div>
+    <nav id="nav-menu">
+        <ul>
+            <li><a href="#home" data-section="home"><span class="fa-solid fa-home icon-80s"></span>Home</a></li>
+            <li><a href="#roster" data-section="roster"><span class="fa-solid fa-users icon-80s"></span>Roster</a></li>
+            <li><a href="#schedule" data-section="schedule"><span class="fa-solid fa-calendar-days icon-80s"></span>Schedule</a></li>
+            <li><a href="#stats" data-section="stats"><span class="fa-solid fa-chart-bar icon-80s"></span>Stats</a></li>
+            <li><a href="#gallery" data-section="gallery"><span class="fa-solid fa-image icon-80s"></span>Gallery</a></li>
+            <li><a href="#admin" data-section="admin"><span class="fa-solid fa-user-lock icon-80s"></span>Admin</a></li>
+            <li><button type="button" id="dark-mode-toggle"><span class="fa-solid fa-lightbulb icon-80s"></span>Toggle Dark Mode</button></li>
+        </ul>
+    </nav>
     <div id="main-content"></div>
     <script type="module">
     document.addEventListener('DOMContentLoaded', () => {
@@ -188,7 +308,6 @@
 
         // SPA section loader
         async function loadSection(section) {
-            // Home is now rendered in JS for interactivity (see below)
             if (section === "home") {
                 renderHomeSection();
                 return;
@@ -211,13 +330,11 @@
         let stats = JSON.parse(localStorage.getItem('stats')) || {};
         let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
         let youtubeVideos = JSON.parse(localStorage.getItem('youtubeVideos')) || [
-            // Default static videos
             "https://www.youtube.com/embed/Ke90Tje7VS0",
             "https://www.youtube.com/embed/dQw4w9WgXcQ"
         ];
         const adminPassword = 'admin123';
 
-        // Section renderers
         function renderNewsSection(newsArr) {
             const feed = document.getElementById('news-feed');
             if (feed) {
@@ -236,8 +353,11 @@
                 playersArr.forEach(player => {
                     let card = document.createElement('div');
                     card.className = 'card';
-                    card.innerHTML = `<h3>${player.name}</h3><p>${player.pos}</p><img src="${player.img}" alt="${player.name}" style="width:100%;"><p>${player.bio}</p>
-                        <button type="button" onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')">Share Profile</button>`;
+                    card.innerHTML = `<h3><span class="fa-solid fa-user icon-80s"></span>${player.name}</h3>
+                        <p>Position: <b>${player.pos}</b></p>
+                        <img src="${player.img}" alt="${player.name}" style="width:100%;max-width:220px;">
+                        <p>${player.bio}</p>
+                        <button type="button" onclick="shareLink('/player/${player.name.replace(/\s/g, '-')}')" class="btn"><span class="fa-solid fa-share icon-80s"></span>Share Profile</button>`;
                     list.appendChild(card);
                 });
             }
@@ -247,7 +367,11 @@
             if (body) {
                 body.innerHTML = '';
                 gamesArr.forEach(game => {
+                    let now = new Date();
+                    let gameDate = new Date(game.date);
+                    let trClass = gameDate < now ? "past-game" : "future-game";
                     let row = document.createElement('tr');
+                    row.className = trClass;
                     row.innerHTML = `<td>${game.date}</td><td>${game.opp}</td><td>${game.loc}</td><td>${game.res}</td>`;
                     body.appendChild(row);
                 });
@@ -259,7 +383,7 @@
                 body.innerHTML = '';
                 for (let player in statsObj) {
                     let row = document.createElement('tr');
-                    row.innerHTML = `<td>${player}</td><td>${statsObj[player].pts}</td><td>${statsObj[player].reb}</td><td>${statsObj[player].ast}</td>`;
+                    row.innerHTML = `<td><span class="fa-solid fa-user icon-80s"></span>${player}</td><td>${statsObj[player].pts}</td><td>${statsObj[player].reb}</td><td>${statsObj[player].ast}</td>`;
                     body.appendChild(row);
                 }
             }
@@ -271,8 +395,8 @@
                 galleryArr.forEach(imgObj => {
                     let card = document.createElement('div');
                     card.className = 'card';
-                    // galleryArr now uses {date, url}
-                    card.innerHTML = `<img src="${imgObj.url}" alt="Gallery Image" style="width:100%;">`;
+                    card.innerHTML = `<img src="${imgObj.url}" alt="Gallery Image" style="width:100%;">
+                        <div style="margin-top:8px;color:var(--gold);font-family:'Permanent Marker',cursive;">${imgObj.date || ""}</div>`;
                     grid.appendChild(card);
                 });
             }
@@ -306,7 +430,6 @@
                 alert('Incorrect password');
             }
         };
-        // Add news
         window.addNews = function() {
             let text = document.getElementById('news-text').value;
             if (text) {
@@ -316,7 +439,6 @@
                 document.getElementById('news-text').value = '';
             }
         };
-        // Add player
         window.addPlayer = function() {
             let name = document.getElementById('player-name').value;
             let pos = document.getElementById('player-pos').value;
@@ -332,7 +454,6 @@
                 document.getElementById('player-img').value = '';
             }
         };
-        // Add game
         window.addGame = function() {
             let date = document.getElementById('game-date').value;
             let opp = document.getElementById('game-opp').value;
@@ -348,7 +469,6 @@
                 document.getElementById('game-res').value = '';
             }
         };
-        // Update stats
         window.updateStats = function() {
             let player = document.getElementById('stats-player').value;
             let pts = document.getElementById('stats-pts').value;
@@ -364,7 +484,6 @@
                 document.getElementById('stats-ast').value = '';
             }
         };
-        // Add image to gallery (now expects date + url object)
         window.addImage = function() {
             let img = document.getElementById('gallery-img').value;
             let date = document.getElementById('gallery-date') ? document.getElementById('gallery-date').value : "";
@@ -376,7 +495,6 @@
                 if(document.getElementById('gallery-date')) document.getElementById('gallery-date').value = '';
             }
         };
-        // Export data as JSON
         window.exportData = function() {
             let data = {news, players, games, stats, gallery, youtubeVideos};
             let blob = new Blob([JSON.stringify(data)], {type: 'application/json'});
@@ -386,7 +504,6 @@
             a.download = 'team-data.json';
             a.click();
         };
-        // Share link
         window.shareLink = function(path) {
             let url = window.location.origin + path;
             if (navigator.share) {
@@ -395,11 +512,9 @@
                 alert('Share this link: ' + url);
             }
         };
-        // Add YouTube video for admin
         window.addYouTubeVideo = function() {
             let url = document.getElementById('youtube-url').value;
             if (url) {
-                // Ensure only 2 links are saved
                 youtubeVideos.unshift(url);
                 youtubeVideos = youtubeVideos.slice(0,2);
                 localStorage.setItem('youtubeVideos', JSON.stringify(youtubeVideos));
@@ -408,13 +523,10 @@
             }
         };
 
-        // Interactive Home Section
         function renderHomeSection() {
-            // Get videos (always 2, if less, fill with blanks)
             let videos = JSON.parse(localStorage.getItem('youtubeVideos')) || youtubeVideos;
             if (!Array.isArray(videos)) videos = [];
             while (videos.length < 2) videos.push("");
-            // Games: show table with last 1 past game and all future games
             let now = new Date(), past = [], future = [];
             games.forEach(g => {
                 let d = new Date(g.date);
@@ -428,15 +540,15 @@
                 <div class="youtube-container">
                     <div class="youtube-video">
                         <iframe width="100%" height="250" src="${videos[0]}" frameborder="0" allowfullscreen></iframe>
-                        <div style="text-align:center;color:#888;font-size:0.9em;">Featured Video </div>
+                        <div>Featured Video 1 <span class="fa-brands fa-youtube icon-80s"></span></div>
                     </div>
                     <div class="youtube-video">
                         <iframe width="100%" height="250" src="${videos[1]}" frameborder="0" allowfullscreen></iframe>
-                        <div style="text-align:center;color:#888;font-size:0.9em;">Previous Video</div>
+                        <div>Featured Video 2 <span class="fa-brands fa-youtube icon-80s"></span></div>
                     </div>
                 </div>
                 <div class="schedule-table-container">
-                    <h3>Game Schedule & Results</h3>
+                    <h3><span class="fa-solid fa-calendar-days icon-80s"></span>Game Schedule & Results</h3>
                     <table>
                         <thead>
                             <tr>
@@ -448,7 +560,7 @@
                         </thead>
                         <tbody>
                             ${recentPast.map(g => `
-                            <tr style="background:#ffe8e8;">
+                            <tr class="past-game">
                                 <td>${g.date}</td>
                                 <td>${g.opp}</td>
                                 <td>${g.loc}</td>
@@ -456,7 +568,7 @@
                             </tr>
                             `).join("")}
                             ${future.map(g => `
-                            <tr style="background:#e8f5ff;">
+                            <tr class="future-game">
                                 <td>${g.date}</td>
                                 <td>${g.opp}</td>
                                 <td>${g.loc}</td>
@@ -470,14 +582,12 @@
             document.getElementById('main-content').innerHTML = homeHtml;
         }
 
-        // SPA hash navigation
         function onHashChange() {
             let section = (window.location.hash || '#home').replace(/^#/, '');
             loadSection(section);
         }
         window.addEventListener('hashchange', onHashChange);
 
-        // Initial load
         onHashChange();
     });
     </script>
