@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Willowdale Basketball - 80's Edition</title>
-    <!-- 80's fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bangers&family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>Willowdale Basketball - Modern Edition</title>
+    <!-- Modern fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Inter:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
@@ -25,7 +25,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Inter', 'Montserrat', 'Roboto', Arial, sans-serif;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: var(--black);
             position: relative;
@@ -45,7 +45,7 @@
             background: linear-gradient(90deg, var(--purple), var(--primary), var(--accent));
             color: var(--gold);
             text-shadow: 3px 3px 0 var(--black), 0 0 8px var(--accent);
-            font-family: 'Bungee', 'Bangers', 'Permanent Marker', cursive;
+            font-family: 'Montserrat', 'Bungee', 'Inter', 'Roboto', Arial, sans-serif;
             padding: 20px 0 14px 0;
             border-bottom: 5px solid var(--gold);
             box-shadow: 0 8px 32px 0 var(--gold);
@@ -61,11 +61,11 @@
             align-items: center;
             justify-content: center;
         }
-        header h1 .fa-basketball {
+        header h1 .fa-basketball-ball {
             margin-right: 16px;
-            color: var(--accent);
+            color: var(--primary);
             font-size: 1.2em;
-            text-shadow: 0 0 12px var(--primary);
+            text-shadow: 0 0 12px var(--secondary);
         }
         #hamburger {
             display: block;
@@ -101,7 +101,7 @@
             text-align: center;
         }
         nav ul li a, nav ul li button {
-            font-family: 'Bangers','Permanent Marker', cursive;
+            font-family: 'Montserrat','Inter', 'Bangers', 'Permanent Marker', cursive;
             color: var(--gold);
             background: var(--purple);
             border: 3px solid var(--accent);
@@ -124,21 +124,18 @@
             nav ul { flex-direction: row; justify-content: center; }
             nav ul li { margin: 0 12px; }
         }
-        /* Neon Card Style */
         .card {
             background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
             border-radius: 16px;
             box-shadow: 0 0 24px var(--accent), 0 4px 24px var(--black);
             border: 4px solid var(--gold);
             color: var(--black);
-            font-family: 'Bangers', cursive;
+            font-family: 'Montserrat', 'Inter', 'Bangers', cursive;
             padding: 20px;
             margin: 18px 0;
         }
         .card h3 { color: var(--accent); text-shadow: 2px 2px 0 var(--gold); }
         .card img { border-radius: 12px; border: 2px solid var(--accent); box-shadow: 0 0 16px var(--primary); max-width: 100%; height: auto; }
-
-        /* YouTube container - responsive */
         .youtube-container {
             display: flex;
             flex-direction: row;
@@ -160,10 +157,9 @@
         .youtube-video div {
             text-align: center;
             color: var(--gold);
-            font-family: 'Bangers', cursive;
+            font-family: 'Montserrat', 'Inter', 'Bangers', cursive;
             margin-top: 6px;
         }
-        /* Responsive YouTube - portrait stacking */
         @media (max-width: 700px) {
             .youtube-container { flex-direction: column; gap: 12px; }
             .youtube-video { max-width: 99vw; min-width: 140px; }
@@ -172,8 +168,6 @@
         @media (max-width: 480px) {
             .youtube-video iframe { height: 160px; }
         }
-
-        /* Schedule Table - responsive */
         .schedule-table-container {
             margin: 34px 0 10px 0;
             background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
@@ -198,14 +192,14 @@
             text-align: left;
             border-bottom: 2px dashed var(--primary);
             color: var(--black);
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Montserrat', 'Inter', 'Roboto', Arial, sans-serif;
             font-size: 1.05em;
             word-break: break-word;
         }
         th {
             background: var(--purple);
             color: var(--gold);
-            font-family: 'Bungee','Bangers',cursive;
+            font-family: 'Montserrat','Inter','Bungee','Bangers',cursive;
             border-bottom: 3px solid var(--gold);
         }
         tr.past-game { background: #ffe8e8; }
@@ -214,10 +208,8 @@
             table { font-size: 0.92em; }
             th, td { padding: 7px; }
         }
-
-        /* Inputs */
         input, textarea, button {
-            font-family: 'Roboto', Arial, sans-serif;
+            font-family: 'Inter', 'Montserrat', 'Roboto', Arial, sans-serif;
             font-size: 1em;
             margin: 8px 0;
             padding: 10px;
@@ -232,7 +224,7 @@
             max-width: 320px;
         }
         button, .btn {
-            font-family: 'Bangers', cursive;
+            font-family: 'Montserrat', 'Inter', 'Bangers', cursive;
             background: var(--primary);
             color: var(--white);
             border: 3px solid var(--accent);
@@ -244,7 +236,6 @@
             color: var(--gold);
             box-shadow: 0 0 14px var(--gold);
         }
-        /* Gallery grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -253,14 +244,12 @@
         @media (max-width: 600px) {
             .grid { grid-template-columns: 1fr; }
         }
-        /* 80's icon art */
         .icon-80s {
             font-size: 2.2em;
             color: var(--accent);
             text-shadow: 2px 2px 0 var(--gold), 0 0 14px var(--primary);
             margin-right: 8px;
         }
-        /* 80's admin instructions */
         aside.instructions-80s {
             flex: 1 1 320px;
             min-width: 270px;
@@ -269,12 +258,12 @@
             padding-left: 18px;
             background: linear-gradient(135deg, var(--secondary) 0%, var(--accent) 80%);
             color: var(--black);
-            font-family: 'Permanent Marker', 'Bangers', cursive;
+            font-family: 'Montserrat', 'Inter', 'Permanent Marker', 'Bangers', cursive;
             box-shadow: 0 0 18px var(--purple);
         }
         aside.instructions-80s h3 {
             color: var(--gold);
-            font-family: 'Bungee', cursive;
+            font-family: 'Montserrat', 'Bungee', cursive;
             text-shadow: 2px 2px 0 var(--accent);
         }
         aside.instructions-80s ul {
@@ -299,85 +288,95 @@
             aside.instructions-80s { margin-top: 18px; }
             .card { padding: 10px; }
         }
-
-        /* DARK MODE */
-        body.dark-mode {
-            background: linear-gradient(135deg, #222 0%, #2c2c2c 100%);
-            color: #FFD700;
+        /* MODERN BASKETBALL THEME (toggles on body) */
+        body.modern-basketball-theme {
+            background: linear-gradient(135deg, #161c24 0%, #23272f 100%);
+            color: #fa5b0f;
+            font-family: 'Montserrat', 'Inter', 'Roboto', Arial, sans-serif;
         }
-        body.dark-mode header {
-            background: linear-gradient(90deg, #222, #444, #7C2AE8);
-            color: #FFD700;
-            text-shadow: 2px 2px 0 #000, 0 0 8px #7C2AE8;
+        body.modern-basketball-theme header {
+            background: linear-gradient(90deg, #23272f 0%, #fa5b0f 100%);
+            color: #fff;
+            text-shadow: 2px 2px 0 #23272f, 0 0 8px #fa5b0f;
+            font-family: 'Montserrat', 'Inter', 'Roboto', Arial, sans-serif;
         }
-        body.dark-mode nav ul {
-            background: linear-gradient(90deg, #333 0%, #7C2AE8 100%);
-            box-shadow: 0 2px 16px #222;
+        body.modern-basketball-theme nav ul {
+            background: linear-gradient(90deg, #23272f 0%, #fa5b0f 100%);
+            box-shadow: 0 2px 16px #161c24;
         }
-        body.dark-mode nav ul li a,
-        body.dark-mode nav ul li button {
-            color: #FFD700;
-            background: #444;
-            border-color: #FFD700;
-            box-shadow: 0 0 8px #7C2AE8;
+        body.modern-basketball-theme nav ul li a,
+        body.modern-basketball-theme nav ul li button {
+            color: #fff;
+            background: #fa5b0f;
+            border-color: #23272f;
+            box-shadow: 0 0 8px #fa5b0f;
+            font-family: 'Montserrat', 'Inter', 'Roboto', Arial, sans-serif;
         }
-        body.dark-mode nav ul li a:hover,
-        body.dark-mode nav ul li button:hover {
-            color: #7C2AE8;
-            background: #FFD700;
-            box-shadow: 0 0 16px #FFD700;
+        body.modern-basketball-theme nav ul li a:hover,
+        body.modern-basketball-theme nav ul li button:hover {
+            color: #161c24;
+            background: #fff;
+            box-shadow: 0 0 16px #fa5b0f;
         }
-        body.dark-mode .card {
-            background: linear-gradient(135deg, #2c2c2c 0%, #222 100%);
-            color: #FFD700;
-            border-color: #7C2AE8;
-            box-shadow: 0 0 24px #FFD700, 0 4px 24px #222;
+        body.modern-basketball-theme .card {
+            background: linear-gradient(135deg, #23272f 0%, #161c24 100%);
+            color: #fff;
+            border-color: #fa5b0f;
+            box-shadow: 0 0 24px #fa5b0f, 0 4px 24px #23272f;
+            font-family: 'Montserrat', 'Inter', 'Roboto', Arial, sans-serif;
         }
-        body.dark-mode th {
-            background: #222;
-            color: #FFD700;
-            border-bottom: 3px solid #FFD700;
+        body.modern-basketball-theme th {
+            background: #fa5b0f;
+            color: #fff;
+            border-bottom: 3px solid #161c24;
         }
-        body.dark-mode td {
-            color: #FFD700;
+        body.modern-basketball-theme td {
+            color: #fff;
         }
-        body.dark-mode input,
-        body.dark-mode textarea,
-        body.dark-mode button {
-            background: #333;
-            color: #FFD700;
-            border-color: #7C2AE8;
+        body.modern-basketball-theme input,
+        body.modern-basketball-theme textarea,
+        body.modern-basketball-theme button {
+            background: #23272f;
+            color: #fa5b0f;
+            border-color: #fa5b0f;
+            font-family: 'Inter', 'Montserrat', Arial, sans-serif;
         }
-        body.dark-mode .btn {
-            background: #7C2AE8;
-            color: #FFD700;
-            border-color: #FFD700;
+        body.modern-basketball-theme .btn {
+            background: #fa5b0f;
+            color: #fff;
+            border-color: #fff;
         }
-        body.dark-mode .btn:hover {
-            background: #FFD700;
-            color: #7C2AE8;
-            box-shadow: 0 0 14px #7C2AE8;
+        body.modern-basketball-theme .btn:hover {
+            background: #fff;
+            color: #fa5b0f;
+            box-shadow: 0 0 14px #fa5b0f;
         }
-        body.dark-mode .youtube-video {
-            background: #222;
-            border-color: #FFD700;
-            box-shadow: 0 0 24px #FFD700;
+        body.modern-basketball-theme .youtube-video {
+            background: #161c24;
+            border-color: #fa5b0f;
+            box-shadow: 0 0 24px #fa5b0f;
         }
-        body.dark-mode .schedule-table-container {
-            background: linear-gradient(90deg, #222 0%, #7C2AE8 100%);
-            box-shadow: 0 2px 12px #FFD700;
+        body.modern-basketball-theme .schedule-table-container {
+            background: linear-gradient(90deg, #23272f 0%, #fa5b0f 100%);
+            box-shadow: 0 2px 12px #fa5b0f;
         }
-        body.dark-mode .instructions-80s {
-            background: linear-gradient(135deg, #222 0%, #7C2AE8 80%);
-            color: #FFD700;
-            box-shadow: 0 0 18px #FFD700;
+        body.modern-basketball-theme .instructions-80s {
+            background: linear-gradient(135deg, #23272f 0%, #fa5b0f 80%);
+            color: #fff;
+            box-shadow: 0 0 18px #fa5b0f;
+        }
+        body.modern-basketball-theme .icon-80s {
+            font-size: 2.2em;
+            color: #fa5b0f;
+            text-shadow: none;
+            margin-right: 8px;
         }
     </style>
 </head>
 <body>
     <header>
         <h1>
-            <span class="fa-solid fa-basketball icon-80s"></span>
+            <span class="fa-solid fa-basketball-ball icon-80s"></span>
             Willowdale Basketball
         </h1>
     </header>
@@ -391,7 +390,11 @@
             <li><a href="#gallery" data-section="gallery"><span class="fa-solid fa-image icon-80s"></span>Gallery</a></li>
             <li><a href="#comics" data-section="comics"><span class="fa-solid fa-book-open icon-80s"></span>Comics</a></li>
             <li><a href="#admin" data-section="admin"><span class="fa-solid fa-user-lock icon-80s"></span>Admin</a></li>
-            <li><button type="button" id="dark-mode-toggle"><span class="fa-solid fa-lightbulb icon-80s"></span>Toggle Dark Mode</button></li>
+            <li>
+                <button type="button" id="dark-mode-toggle">
+                    <span class="fa-solid fa-basketball-ball"></span> Modern Basketball Theme
+                </button>
+            </li>
         </ul>
     </nav>
     <div id="main-content"></div>
@@ -411,7 +414,6 @@
                 }
             }
         });
-
         // Navigation links
         document.querySelectorAll('#nav-menu ul li a[data-section]').forEach(link => {
             link.addEventListener('click', function(e) {
@@ -424,12 +426,10 @@
                 }
             });
         });
-
-        // Dark mode toggle (now works!)
+        // Modern theme toggle
         document.getElementById('dark-mode-toggle').onclick = function() {
-            document.body.classList.toggle('dark-mode');
+            document.body.classList.toggle('modern-basketball-theme');
         };
-
         // SPA section loader
         async function loadSection(section) {
             if (section === "home") {
@@ -446,8 +446,6 @@
                 document.getElementById('main-content').innerHTML = "<section><h2>Section not found</h2></section>";
             }
         }
-
-        // Data storage from localStorage
         let news = JSON.parse(localStorage.getItem('news')) || [];
         let players = JSON.parse(localStorage.getItem('players')) || [];
         let games = JSON.parse(localStorage.getItem('games')) || [];
@@ -535,8 +533,6 @@
                 case 'comics': break;
             }
         }
-
-        // Roster filter
         window.filterRoster = function() {
             let input = document.getElementById('roster-search').value.toLowerCase();
             let cards = document.querySelectorAll('#roster-list .card');
@@ -545,7 +541,6 @@
                 card.style.display = name.includes(input) ? 'block' : 'none';
             });
         };
-        // Admin login
         window.loginAdmin = function() {
             let pass = document.getElementById('admin-pass').value;
             if (pass === adminPassword) {
@@ -647,8 +642,6 @@
                 renderHomeSection();
             }
         };
-
-        // Interactive Home Section
         function renderHomeSection() {
             let videos = JSON.parse(localStorage.getItem('youtubeVideos')) || youtubeVideos;
             if (!Array.isArray(videos)) videos = [];
@@ -666,11 +659,11 @@
                 <div class="youtube-container">
                     <div class="youtube-video">
                         <iframe width="100%" height="250" src="${videos[0]}" frameborder="0" allowfullscreen></iframe>
-                        <div>Featured Video <span class="fa-brands fa-youtube icon-80s"></span></div>
+                        <div>Featured Video <span class="fa-solid fa-basketball-hoop icon-80s"></span></div>
                     </div>
                     <div class="youtube-video">
                         <iframe width="100%" height="250" src="${videos[1]}" frameborder="0" allowfullscreen></iframe>
-                        <div>Previous Video <span class="fa-brands fa-youtube icon-80s"></span></div>
+                        <div>Previous Video <span class="fa-solid fa-basketball-ball icon-80s"></span></div>
                     </div>
                 </div>
                 <div class="schedule-table-container">
@@ -707,15 +700,11 @@
             `;
             document.getElementById('main-content').innerHTML = homeHtml;
         }
-
-        // SPA hash navigation
         function onHashChange() {
             let section = (window.location.hash || '#home').replace(/^#/, '');
             loadSection(section);
         }
         window.addEventListener('hashchange', onHashChange);
-
-        // Initial load
         onHashChange();
     });
     </script>
