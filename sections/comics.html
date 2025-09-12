@@ -1,39 +1,78 @@
 <section>
-  <div class="card" style="background: linear-gradient(135deg, #ffe8e8 0%, #d3baff 100%); box-shadow: 0 0 32px #FF2D6F;">
-    <h2 style="font-family:'Bangers',cursive;font-size:2em;color:#FF2D6F;text-shadow:2px 2px 0 #FFD700;">
-      <span class="fa-solid fa-star icon-80s"></span> Weekly Basketball Comics
-    </h2>
-    <div id="comics-grid" class="comics-grid80s"></div>
+    <div class="card">
+    <img class="character-img" src="https://static.wikia.nocookie.net/slamdunk/images/c/c4/KogureAnime.png" alt="Kogure">
+    <h2 style="font-family:'Luckiest Guy',cursive;color:#1677FF;">Kiminobu Kogure</h2>
+    <p style="font-family:'Luckiest Guy',cursive;font-size:1.1em;">"Let’s enjoy basketball together."</p>
+    <p>
+      Comics, memes, and fun panels from the world of Slam Dunk. Kogure keeps the team together—share your favorite moments!
+    </p>
+    <div id="comics-grid" class="grid"></div>
     <form id="comic-upload-form" style="margin: 18px 0 0 0; text-align: center;" onsubmit="event.preventDefault(); addComicImage();">
-      <label style="font-family:'Bangers',cursive;">
-        <span class="fa-solid fa-calendar-days icon-80s"></span>
-        Date:
-        <input type="date" id="comic-date" required style="max-width:160px;">
+      <label>
+        Date: <input type="date" id="comic-date" required style="max-width:160px;">
       </label>
-      <label style="font-family:'Bangers',cursive;">
-        <span class="fa-solid fa-image icon-80s"></span>
-        Comic Image URL:
-        <input type="url" id="comic-img" placeholder="Paste image URL" required style="max-width:320px;">
+      <label>
+        Comic Image URL: <input type="url" id="comic-img" placeholder="Paste image URL" required style="max-width:320px;">
       </label>
-      <label style="font-family:'Bangers',cursive;">
-        <span class="fa-solid fa-comment-dots icon-80s"></span>
-        Caption:
-        <input type="text" id="comic-caption" maxlength="120" style="max-width:320px;">
+      <label>
+        Caption: <input type="text" id="comic-caption" maxlength="120" style="max-width:320px;">
       </label>
       <button type="submit" class="btn" style="margin-top:10px;">
-        <span class="fa-solid fa-upload icon-80s"></span>
+        <span class="fa-solid fa-upload icon-sd"></span>
         Upload Comic
       </button>
-      <div style="font-size:0.93em;color:#888;margin-top:8px;">
-        Tip: Use PNG/JPG links, e.g. from Imgur/Cloudinary. Your comics will appear instantly!
-      </div>
+      <div style="font-size:0.93em;color:#888;margin-top:8px;">Use PNG/JPG links, e.g. from Imgur.</div>
     </form>
-    <div style="text-align:center; margin-top:18px;">
-      <img src="https://cdn.pixabay.com/photo/2016/04/01/09/29/basketball-1305910_1280.png" alt="Basketball Comic" style="max-width:90px;margin:8px;">
-      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="Comic Style Hoop" style="max-width:70px;margin:8px;">
-      <img src="https://cdn.pixabay.com/photo/2013/07/12/15/46/basketball-150997_1280.png" alt="Comic Ball" style="max-width:60px;margin:8px;">
-    </div>
   </div>
+  <div style="text-align:center;margin-top:16px;">
+    <img src="https://static.wikia.nocookie.net/slamdunk/images/c/c4/KogureAnime.png" alt="Kogure" style="max-width:110px;border-radius:16px;border:2px solid #1677FF;">
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      function getComics() { return JSON.parse(localStorage.getItem('comics')) || []; }
+      function saveComics(arr) { localStorage.setItem('comics', JSON.stringify(arr)); }
+      function renderComics() {
+        const grid = document.getElementById('comics-grid');
+        grid.innerHTML = '';
+        let comics = getComics();
+        comics.sort((a, b) => new Date(b.date) - new Date(a.date));
+        comics.forEach((comic, idx) => {
+          let card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <button style="position:absolute;top:8px;right:10px;background:#D7263D;color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:1.1em;box-shadow:0 2px 8px #FFB140;cursor:pointer;z-index:2;" onclick="deleteComic(${idx})" title="Delete comic">
+              <span class="fa-solid fa-trash"></span>
+            </button>
+            <div style="font-size:0.92em;color:#1677FF;">${comic.date ? comic.date : ''}</div>
+            <img src="${comic.img}" alt="Slam Dunk Comic" style="max-width:100%;border-radius:10px;border:2px solid #FFB140;">
+            <div style="font-family:'Kosugi Maru',cursive;color:#D7263D;background:#ffe8e8;border-radius:6px;margin:8px auto 0 auto;padding:4px 12px;max-width:90%;font-size:1.05em;box-shadow:0 2px 8px #FFB140;">${comic.caption ? comic.caption : ''}</div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+      window.addComicImage = function() {
+        let img = document.getElementById('comic-img').value.trim();
+        let date = document.getElementById('comic-date').value;
+        let caption = document.getElementById('comic-caption').value.trim();
+        if (img && date) {
+          let comics = getComics();
+          comics.unshift({ date, img, caption });
+          saveComics(comics);
+          renderComics();
+          document.getElementById('comic-img').value = '';
+          document.getElementById('comic-date').value = '';
+          document.getElementById('comic-caption').value = '';
+        }
+      };
+      window.deleteComic = function(idx) {
+        let comics = getComics();
+        comics.splice(idx, 1);
+        saveComics(comics);
+        renderComics();
+      };
+      renderComics();
+    });
+  </script>
   <style>
     .comics-grid80s {
       display: grid;
