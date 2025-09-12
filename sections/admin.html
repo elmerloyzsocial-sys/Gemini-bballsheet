@@ -1,262 +1,123 @@
 <div style="display: flex; flex-wrap: wrap;">
   <!-- Main Admin Controls (left panel) -->
   <div style="flex: 2 1 400px; min-width: 320px;">
-    <h2>Admin Section</h2>
-    <div id="admin-login">
-      <input type="password" id="admin-pass" placeholder="Enter admin password">
-      <button onclick="loginAdmin()">Login</button>
-    </div>
-    <div id="admin-forms" style="display:none;">
-	
-		<!-- Add YouTube Video Links -->
-	  <fieldset>
-		<legend>Featured YouTube Videos</legend>
-		<form onsubmit="event.preventDefault(); addYouTubeVideo();">
-			<label>Paste YouTube Embed Link (e.g. https://www.youtube.com/embed/VideoID): 
-			<input type="url" id="youtube-url" required>
-			</label>
-			<button type="submit">Add/Replace Video</button>
-			<div style="font-size:0.93em;color:#888;">Only the latest 2 videos will show on the home page.</div>
-		</form>
-	  </fieldset>
+    <div class="card">
+      <h2><span class="fa-solid fa-user-lock icon-80s"></span> Admin Section</h2>
+      <div id="admin-login">
+        <input type="password" id="admin-pass" placeholder="Enter admin password">
+        <button onclick="loginAdmin()" class="btn"><span class="fa-solid fa-right-to-bracket icon-80s"></span>Login</button>
+      </div>
+      <div id="admin-forms" style="display:none;">
 
-      <!-- Roster Management -->
-      <fieldset>
-        <legend>Edit Roster</legend>
-        <form onsubmit="event.preventDefault(); addPlayer();">
-          <label>Name: <input type="text" id="player-name" required></label>
-          <label>Position: <input type="text" id="player-pos" required></label>
-          <label>Bio: <textarea id="player-bio"></textarea></label>
-          <label>Image URL: <input type="url" id="player-img"></label>
-          <button type="submit">Add Player</button>
-        </form>
-        <div>
-          <h4>Current Players</h4>
-          <ul id="admin-roster-list"></ul>
-        </div>
-      </fieldset>
+        <fieldset style="margin-bottom:16px;">
+          <legend style="font-family:'Bangers',cursive;color:var(--accent);font-size:1.2em;">
+            <span class="fa-brands fa-youtube icon-80s"></span>
+            Featured YouTube Videos
+          </legend>
+          <form onsubmit="event.preventDefault(); addYouTubeVideo();">
+            <label>
+              Paste YouTube Embed Link (e.g. https://www.youtube.com/embed/VideoID): 
+              <input type="url" id="youtube-url" required>
+            </label>
+            <button type="submit" class="btn">Add/Replace Video</button>
+            <div style="font-size:0.93em;color:#888;">Only the latest 2 videos will show on the home page.</div>
+          </form>
+        </fieldset>
 
-      <!-- Schedule Management -->
-      <fieldset>
-        <legend>Edit Schedule</legend>
-        <form onsubmit="event.preventDefault(); addGame();">
-          <label>Date: <input type="date" id="game-date" required></label>
-          <label>Opponent: <input type="text" id="game-opp" required></label>
-          <label>Location: <input type="text" id="game-loc"></label>
-          <label>Result: <input type="text" id="game-res"></label>
-          <button type="submit">Add Game</button>
-        </form>
-        <div>
-          <h4>Current Schedule</h4>
-          <ul id="admin-schedule-list"></ul>
-        </div>
-      </fieldset>
+        <!-- Roster Management -->
+        <fieldset>
+          <legend><span class="fa-solid fa-users icon-80s"></span> Edit Roster</legend>
+          <form onsubmit="event.preventDefault(); addPlayer();">
+            <label>Name: <input type="text" id="player-name" required></label>
+            <label>Position: <input type="text" id="player-pos" required></label>
+            <label>Bio: <textarea id="player-bio"></textarea></label>
+            <label>Image URL: <input type="url" id="player-img"></label>
+            <button type="submit" class="btn">Add Player</button>
+          </form>
+          <div>
+            <h4>Current Players</h4>
+            <ul id="admin-roster-list"></ul>
+          </div>
+        </fieldset>
 
-      <!-- Stats Management -->
-      <fieldset>
-        <legend>Edit Stats</legend>
-        <form onsubmit="event.preventDefault(); updateStats();">
-          <label>Player Name: <input type="text" id="stats-player" required></label>
-          <label>Points: <input type="number" id="stats-pts"></label>
-          <label>Rebounds: <input type="number" id="stats-reb"></label>
-          <label>Assists: <input type="number" id="stats-ast"></label>
-          <button type="submit">Update Stats</button>
-        </form>
-        <div>
-          <h4>Current Stats</h4>
-          <ul id="admin-stats-list"></ul>
-        </div>
-      </fieldset>
+        <!-- Schedule Management -->
+        <fieldset>
+          <legend><span class="fa-solid fa-calendar-days icon-80s"></span> Edit Schedule</legend>
+          <form onsubmit="event.preventDefault(); addGame();">
+            <label>Date: <input type="date" id="game-date" required></label>
+            <label>Opponent: <input type="text" id="game-opp" required></label>
+            <label>Location: <input type="text" id="game-loc"></label>
+            <label>Result: <input type="text" id="game-res"></label>
+            <button type="submit" class="btn">Add Game</button>
+          </form>
+          <div>
+            <h4>Current Schedule</h4>
+            <ul id="admin-schedule-list"></ul>
+          </div>
+        </fieldset>
 
-      <!-- Gallery Management -->
-      <fieldset>
-        <legend>Manage Gallery</legend>
-        <form onsubmit="event.preventDefault(); addImage();">
-          <label>Date: <input type="date" id="gallery-date" required></label>
-          <label>Full Image URL: <input type="url" id="gallery-img" required></label>
-          <button type="submit">Upload Image</button>
-        </form>
-        <div>
-          <h4>Gallery (Grouped by Date)</h4>
-          <div id="admin-gallery-date-groups"></div>
-        </div>
-      </fieldset>
+        <!-- Stats Management -->
+        <fieldset>
+          <legend><span class="fa-solid fa-chart-bar icon-80s"></span> Edit Stats</legend>
+          <form onsubmit="event.preventDefault(); updateStats();">
+            <label>Player Name: <input type="text" id="stats-player" required></label>
+            <label>Points: <input type="number" id="stats-pts"></label>
+            <label>Rebounds: <input type="number" id="stats-reb"></label>
+            <label>Assists: <input type="number" id="stats-ast"></label>
+            <button type="submit" class="btn">Update Stats</button>
+          </form>
+          <div>
+            <h4>Current Stats</h4>
+            <ul id="admin-stats-list"></ul>
+          </div>
+        </fieldset>
 
-      <!-- Export Data Button -->
-      <button onclick="exportData()">Export Data as JSON</button>
+        <!-- Gallery Management -->
+        <fieldset>
+          <legend><span class="fa-solid fa-image icon-80s"></span> Manage Gallery</legend>
+          <form onsubmit="event.preventDefault(); addImage();">
+            <label>Date: <input type="date" id="gallery-date" required></label>
+            <label>Full Image URL: <input type="url" id="gallery-img" required></label>
+            <button type="submit" class="btn">Upload Image</button>
+          </form>
+          <div>
+            <h4>Gallery (Grouped by Date)</h4>
+            <div id="admin-gallery-date-groups"></div>
+          </div>
+        </fieldset>
+
+        <button onclick="exportData()" class="btn"><span class="fa-solid fa-download icon-80s"></span>Export Data as JSON</button>
+      </div>
     </div>
   </div>
 
   <!-- Instructions Panel (right side) -->
   <aside class="instructions-80s">
-  <h3><span class="fa-solid fa-star icon-80s"></span>80's Admin Page Instructions</h3>
-  <ul>
-    <li><strong>Login:</strong> Enter the admin password to unlock editing features.</li>
-    <li><strong>Edit Roster:</strong> Add new players with their name, position, bio, and image URL. Remove players from the roster using the "Delete" button.</li>
-    <li><strong>Edit Schedule:</strong> Add or delete games. Fill in the date, opponent, location, and result fields.</li>
-    <li><strong>Edit Stats:</strong> Update player stats by entering the player's name and new numbers for points, rebounds, and assists. Delete a player's stats if needed.</li>
-    <li><strong>Manage Gallery:</strong> Upload images by providing a date and a full image URL. Images are grouped by upload date and are visible to all visitors. You can delete any image.</li>
-    <li><strong>Export Data:</strong> Download all team data as a JSON file for backup or migration.</li>
-    <li><strong>Update Featured Videos:</strong> In the <em>Featured YouTube Videos</em> section, paste a new YouTube embed link and click "Add/Replace Video." Only the latest two videos will be shown on the home page.<br>
-      <span style="font-size:0.95em;color:#888;">Use the admin form—no code edit needed!</span>
-    </li>
-  </ul>
-  <hr>
-  <p><strong>Tips:</strong></p>
-  <ul>
-    <li>Use full image/video embed URLs.</li>
-    <li>Changes are instant and persist for future visits.</li>
-    <li>Gallery images and featured videos are shown to all visitors.</li>
-    <li>If you make a mistake, use the "Delete" buttons to remove entries.</li>
-    <li>Refresh the page if you do not see updates right away.</li>
-  </ul>
-  <p style="font-size:0.95em;color:#888;">For help, contact your website administrator.</p>
-</aside>
+    <h3><span class="fa-solid fa-star icon-80s"></span>80's Admin Page Instructions</h3>
+    <ul>
+      <li><strong>Login:</strong> Enter the admin password to unlock editing features.</li>
+      <li><strong>Edit Roster:</strong> Add new players with their name, position, bio, and image URL. Remove players from the roster using the "Delete" button.</li>
+      <li><strong>Edit Schedule:</strong> Add or delete games. Fill in the date, opponent, location, and result fields.</li>
+      <li><strong>Edit Stats:</strong> Update player stats by entering the player's name and new numbers for points, rebounds, and assists. Delete a player's stats if needed.</li>
+      <li><strong>Manage Gallery:</strong> Upload images by providing a date and a full image URL. Images are grouped by upload date and are visible to all visitors. You can delete any image.</li>
+      <li><strong>Export Data:</strong> Download all team data as a JSON file for backup or migration.</li>
+      <li><strong>Update Featured Videos:</strong> In the <em>Featured YouTube Videos</em> section, paste a new YouTube embed link and click "Add/Replace Video." Only the latest two videos will be shown on the home page.<br>
+        <span style="font-size:0.95em;color:#888;">Use the admin form—no code edit needed!</span>
+      </li>
+    </ul>
+    <hr>
+    <p><strong>Tips:</strong></p>
+    <ul>
+      <li>Use full image/video embed URLs.</li>
+      <li>Changes are instant and persist for future visits.</li>
+      <li>Gallery images and featured videos are shown to all visitors.</li>
+      <li>If you make a mistake, use the "Delete" buttons to remove entries.</li>
+      <li>Refresh the page if you do not see updates right away.</li>
+    </ul>
+    <p style="font-size:0.95em;color:#888;">For help, contact your website administrator.</p>
+    <div style="text-align:center;margin-top:18px;">
+      <img src="https://cdn.pixabay.com/photo/2017/01/31/21/23/basketball-2027046_1280.png" alt="80s Admin" style="max-width:90px;">
+      <img src="https://cdn.pixabay.com/photo/2016/04/01/10/08/basketball-1306066_1280.png" alt="80s Sneaker" style="max-width:70px;">
+    </div>
+  </aside>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Show admin data after login
-  function refreshAdminLists() {
-    // Roster
-    let rosterList = document.getElementById('admin-roster-list');
-    rosterList.innerHTML = '';
-    let players = JSON.parse(localStorage.getItem('players')) || [];
-    players.forEach((player, idx) => {
-      let li = document.createElement('li');
-      li.innerHTML = `<strong>${player.name}</strong> (${player.pos})
-        <button onclick="removePlayer(${idx})">Delete</button>`;
-      rosterList.appendChild(li);
-    });
-
-    // Schedule
-    let scheduleList = document.getElementById('admin-schedule-list');
-    scheduleList.innerHTML = '';
-    let games = JSON.parse(localStorage.getItem('games')) || [];
-    games.forEach((game, idx) => {
-      let li = document.createElement('li');
-      li.innerHTML = `<strong>${game.date}</strong>: ${game.opp} at ${game.loc} (${game.res || 'No result'})
-        <button onclick="removeGame(${idx})">Delete</button>`;
-      scheduleList.appendChild(li);
-    });
-
-    // Stats
-    let statsList = document.getElementById('admin-stats-list');
-    statsList.innerHTML = '';
-    let stats = JSON.parse(localStorage.getItem('stats')) || {};
-    Object.keys(stats).forEach((player) => {
-      let s = stats[player];
-      let li = document.createElement('li');
-      li.innerHTML = `<strong>${player}</strong>: ${s.pts || 0} pts, ${s.reb || 0} reb, ${s.ast || 0} ast
-        <button onclick="removeStats('${player}')">Delete</button>`;
-      statsList.appendChild(li);
-    });
-
-    // Gallery (grouped by date)
-    let galleryGroupDiv = document.getElementById('admin-gallery-date-groups');
-    galleryGroupDiv.innerHTML = '';
-    let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
-    // gallery: [{date: "2025-09-11", url: "..."}, ...]
-    let grouped = {};
-    gallery.forEach(imgObj => {
-      let date = imgObj.date || "No Date";
-      if (!grouped[date]) grouped[date] = [];
-      grouped[date].push(imgObj.url);
-    });
-    Object.keys(grouped).sort().reverse().forEach(date => {
-      let groupDiv = document.createElement('div');
-      groupDiv.innerHTML = `<h5>${date}</h5>`;
-      grouped[date].forEach((imgUrl, idx) => {
-        let imgDiv = document.createElement('div');
-        imgDiv.style.display = "inline-block";
-        imgDiv.style.margin = "5px";
-        imgDiv.innerHTML = `
-          <img src="${imgUrl}" alt="Gallery Image" style="max-width:200px;max-height:150px;">
-          <br>
-          <button onclick="removeGalleryImage('${date}', ${idx})">Delete</button>
-        `;
-        groupDiv.appendChild(imgDiv);
-      });
-      galleryGroupDiv.appendChild(groupDiv);
-    });
-  }
-
-  // Add remove functions to window
-  window.removePlayer = function(idx) {
-    let players = JSON.parse(localStorage.getItem('players')) || [];
-    players.splice(idx, 1);
-    localStorage.setItem('players', JSON.stringify(players));
-    refreshAdminLists();
-  };
-  window.removeGame = function(idx) {
-    let games = JSON.parse(localStorage.getItem('games')) || [];
-    games.splice(idx, 1);
-    localStorage.setItem('games', JSON.stringify(games));
-    refreshAdminLists();
-  };
-  window.removeStats = function(player) {
-    let stats = JSON.parse(localStorage.getItem('stats')) || {};
-    delete stats[player];
-    localStorage.setItem('stats', JSON.stringify(stats));
-    refreshAdminLists();
-  };
-  window.removeGalleryImage = function(date, idx) {
-    let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
-    let count = 0;
-    for(let i=0; i<gallery.length; i++) {
-      if(gallery[i].date === date) {
-        if(count === idx) {
-          gallery.splice(i, 1);
-          break;
-        }
-        count++;
-      }
-    }
-    localStorage.setItem('gallery', JSON.stringify(gallery));
-    refreshAdminLists();
-  };
-
-  // Patch addImage to use date
-  window.addImage = function() {
-    let img = document.getElementById('gallery-img').value;
-    let date = document.getElementById('gallery-date').value;
-    if (img && date) {
-      let gallery = JSON.parse(localStorage.getItem('gallery')) || [];
-      gallery.push({date: date, url: img});
-      localStorage.setItem('gallery', JSON.stringify(gallery));
-      document.getElementById('gallery-img').value = '';
-      document.getElementById('gallery-date').value = '';
-      refreshAdminLists();
-    }
-  };
-
-  // Patch addPlayer, addGame, updateStats to refresh lists if called from admin
-  let origAddPlayer = window.addPlayer;
-  window.addPlayer = function() {
-    origAddPlayer();
-    refreshAdminLists();
-  };
-  let origAddGame = window.addGame;
-  window.addGame = function() {
-    origAddGame();
-    refreshAdminLists();
-  };
-  let origUpdateStats = window.updateStats;
-  window.updateStats = function() {
-    origUpdateStats();
-    refreshAdminLists();
-  };
-
-  // Patch loginAdmin to refresh lists after login
-  let origLoginAdmin = window.loginAdmin;
-  window.loginAdmin = function() {
-    origLoginAdmin();
-    setTimeout(refreshAdminLists, 100); // Wait for forms to show
-  };
-
-  // If already logged in, show lists
-  if(document.getElementById('admin-forms').style.display !== 'none') {
-    refreshAdminLists();
-  }
-});
-</script>
