@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Willowdale Basketball - 80's Edition</title>
     <!-- 80's fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bangers&family=Permanent+Marker&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <!-- 80's basketball icon CDN (Font Awesome 6) -->
+    <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         :root {
@@ -19,13 +19,15 @@
             --white: #FFFFFF;
             --black: #000000;
         }
-        body {
-            font-family: 'Roboto', Arial, sans-serif;
+        html, body {
+            width: 100%;
+            min-height: 100vh;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+            font-family: 'Roboto', Arial, sans-serif;
             background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
             color: var(--black);
-            min-height: 100vh;
             position: relative;
             overflow-x: hidden;
         }
@@ -52,7 +54,7 @@
             z-index: 1000;
         }
         header h1 {
-            font-size: 3em;
+            font-size: 2.2em;
             letter-spacing: 4px;
             margin: 0;
             display: flex;
@@ -75,9 +77,14 @@
             padding: 0 12px;
             margin-left: 12px;
             box-shadow: 0 2px 8px var(--primary);
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            z-index: 1200;
         }
         nav {
             display: none;
+            z-index: 2000;
         }
         nav ul {
             list-style: none;
@@ -113,7 +120,7 @@
         }
         @media (min-width: 768px) {
             #hamburger { display: none; }
-            nav { display: block; }
+            nav { display: block !important; }
             nav ul { flex-direction: row; justify-content: center; }
             nav ul li { margin: 0 12px; }
         }
@@ -129,15 +136,16 @@
             margin: 18px 0;
         }
         .card h3 { color: var(--accent); text-shadow: 2px 2px 0 var(--gold); }
-        .card img { border-radius: 12px; border: 2px solid var(--accent); box-shadow: 0 0 16px var(--primary); }
+        .card img { border-radius: 12px; border: 2px solid var(--accent); box-shadow: 0 0 16px var(--primary); max-width: 100%; height: auto; }
 
-        /* YouTube container */
+        /* YouTube container - responsive */
         .youtube-container {
             display: flex;
             flex-direction: row;
             gap: 24px;
             margin: 28px 0;
             justify-content: center;
+            flex-wrap: wrap;
         }
         .youtube-video {
             flex: 1 1 320px;
@@ -155,13 +163,24 @@
             font-family: 'Bangers', cursive;
             margin-top: 6px;
         }
-        /* Schedule Table */
+        /* Responsive YouTube - portrait stacking */
+        @media (max-width: 700px) {
+            .youtube-container { flex-direction: column; gap: 12px; }
+            .youtube-video { max-width: 99vw; min-width: 140px; }
+            .youtube-video iframe { height: 210px; }
+        }
+        @media (max-width: 480px) {
+            .youtube-video iframe { height: 160px; }
+        }
+
+        /* Schedule Table - responsive */
         .schedule-table-container {
             margin: 34px 0 10px 0;
             background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
             border-radius: 16px;
             padding: 18px;
             box-shadow: 0 2px 12px var(--accent);
+            overflow-x: auto;
         }
         table {
             width: 100%;
@@ -171,6 +190,8 @@
             overflow: hidden;
             box-shadow: 0 0 12px var(--accent);
             margin-top: 8px;
+            display: block;
+            min-width: 340px;
         }
         th, td {
             padding: 10px;
@@ -179,6 +200,7 @@
             color: var(--black);
             font-family: 'Roboto', Arial, sans-serif;
             font-size: 1.05em;
+            word-break: break-word;
         }
         th {
             background: var(--purple);
@@ -188,6 +210,11 @@
         }
         tr.past-game { background: #ffe8e8; }
         tr.future-game { background: #e8f5ff; }
+        @media (max-width: 480px) {
+            table { font-size: 0.92em; }
+            th, td { padding: 7px; }
+        }
+
         /* Inputs */
         input, textarea, button {
             font-family: 'Roboto', Arial, sans-serif;
@@ -198,8 +225,11 @@
             border: 2px solid var(--accent);
             color: var(--black);
             background: var(--white);
+            box-sizing: border-box;
             box-shadow: 0 0 8px var(--primary);
             transition: border 0.2s, box-shadow 0.2s;
+            width: 100%;
+            max-width: 320px;
         }
         button, .btn {
             font-family: 'Bangers', cursive;
@@ -219,6 +249,9 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 18px;
+        }
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
         }
         /* 80's icon art */
         .icon-80s {
@@ -257,7 +290,6 @@
             border-top: 2px dashed var(--primary);
             margin: 14px 0;
         }
-        /* MOBILE STYLES */
         @media (max-width: 900px) {
             aside.instructions-80s { margin-left: 0; border-left: none; padding-left: 0; }
             div[style*="display: flex"] { flex-wrap: wrap; }
@@ -267,22 +299,7 @@
             aside.instructions-80s { margin-top: 18px; }
             .card { padding: 10px; }
         }
-        @media (max-width: 480px) {
-            header h1 { font-size: 2em; }
-            .card { padding: 8px; }
-            .youtube-video { min-width: 140px; max-width: 99vw; }
-            .youtube-container { flex-direction: column; gap: 18px; }
-            .grid { grid-template-columns: 1fr; }
-            table { font-size: 0.95em; }
-        }
-        input, textarea, button {
-            box-sizing: border-box;
-            width: 100%;
-            max-width: 320px;
-            margin-bottom: 6px;
-        }
-        fieldset { border-radius: 8px; margin-bottom: 12px; }
-        legend { font-size:1.15em; }
+
         /* DARK MODE */
         body.dark-mode {
             background: linear-gradient(135deg, #222 0%, #2c2c2c 100%);
@@ -386,6 +403,14 @@
         hamburger.onclick = function() {
             navMenu.style.display = (navMenu.style.display === 'block' ? 'none' : 'block');
         };
+        // Hide nav if clicking outside nav/hamburger in portrait
+        document.body.addEventListener('click', function(e) {
+            if (window.innerWidth < 768 && navMenu.style.display === 'block') {
+                if (!e.target.closest('nav') && !e.target.closest('#hamburger')) {
+                    navMenu.style.display = 'none';
+                }
+            }
+        });
 
         // Navigation links
         document.querySelectorAll('#nav-menu ul li a[data-section]').forEach(link => {
